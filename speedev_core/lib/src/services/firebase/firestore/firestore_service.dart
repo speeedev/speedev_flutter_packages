@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-abstract class SDFirestoreService {
+abstract class SDFirebaseFirestoreService {
   FirebaseFirestore get firestore;
 
   Future<void> addDocument(String collectionPath, Map<String, dynamic> data);
@@ -14,7 +14,7 @@ abstract class SDFirestoreService {
   Future<List<Map<String, dynamic>>> getDocuments(String collectionPath);
 }
 
-class SDFirestoreServiceImpl implements SDFirestoreService {
+class SDFirebaseFirestoreServiceImpl implements SDFirebaseFirestoreService {
   @override
   FirebaseFirestore get firestore => FirebaseFirestore.instance;
 

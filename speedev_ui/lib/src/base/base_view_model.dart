@@ -20,7 +20,7 @@ abstract class BaseViewModel extends ChangeNotifier {
       operation: operation,
       onError: (e, stackTrace) {
         showErrorDialog();
-        SDCrashlyticsService().recordCrash(error: e, stackTrace: stackTrace);
+        SDFirebaseCrashlyticsService().recordCrash(error: e, stackTrace: stackTrace);
       },
     );
   }

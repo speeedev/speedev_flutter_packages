@@ -16,7 +16,7 @@ class SDErrorView extends StatelessWidget {
           children: [
             Text(title ?? 'Error'),
             Text(description ?? 'Error'),
-            SDButton(
+            SDButton.primary(
               onPressed: onTryAgain ?? () {},
               text: 'Try Again',
             ),

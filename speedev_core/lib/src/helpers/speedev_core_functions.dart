@@ -14,7 +14,7 @@ Future<void> safeExecute<T>({
   } catch (error, stackTrace) {
     if (onError != null) {
       onError(error, stackTrace);
-      SDCrashlyticsService().recordCrash(error: error, stackTrace: stackTrace);
+      SDFirebaseCrashlyticsService().recordCrash(error: error, stackTrace: stackTrace);
     }
   } finally {
     if (onFinally != null) {

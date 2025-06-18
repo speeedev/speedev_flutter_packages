@@ -149,7 +149,7 @@ extension PagingControllerExtension on PagingController {
       } catch (e, stackTrace) {
         SDLoggerHelper().error("Error in fetch page method in infinite list view.");
         error = e;
-        await SDCrashlyticsService().recordCrash(error: e, stackTrace: stackTrace);
+        await SDFirebaseCrashlyticsService().recordCrash(error: e, stackTrace: stackTrace);
       }
     });
   }
