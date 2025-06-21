@@ -10,6 +10,8 @@ class SDEasyLoading {
     EasyLoading.instance.indicatorType = EasyLoadingIndicatorType.fadingCircle;
     EasyLoading.instance.loadingStyle = EasyLoadingStyle.dark;
     EasyLoading.instance.maskType = EasyLoadingMaskType.black;
+    EasyLoading.instance.userInteractions = false;
+    EasyLoading.instance.dismissOnTap = false;
     EasyLoading.init();
   }
 
