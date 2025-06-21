@@ -13,14 +13,14 @@ class SDButton extends StatefulWidget {
   final SDButtonState? state;
   final Widget? prefix;
   final Widget? suffix;
-  final SDButtonType? _type;
+  final SDButtonType _type;
   final EdgeInsetsGeometry? padding;
 
   const SDButton.primary({
     super.key,
     required this.child,
     this.onPressed,
-    this.state,
+    this.state = SDButtonState.enabled,
     this.prefix,
     this.suffix,
     this.padding,
