@@ -6,7 +6,7 @@ import 'package:speedev_ui/src/widgets/state/loading/loading_indicator.dart';
 
 typedef InfiniteListViewFuture<T> = Future<List<T>> Function(int pageSize, int pageKey);
 
-class AppPagedListView<T> extends StatefulWidget {
+class SDPagedListView<T> extends StatefulWidget {
   final ItemWidgetBuilder<T> itemBuilder;
   final Widget? emptyView;
   final PagingController<int, T>? pagingController;
@@ -19,7 +19,7 @@ class AppPagedListView<T> extends StatefulWidget {
   final bool isSliver;
   final Axis scrollDirection;
 
-  const AppPagedListView({
+  const SDPagedListView({
     super.key,
     required this.itemBuilder,
     this.pagingController,
@@ -35,10 +35,10 @@ class AppPagedListView<T> extends StatefulWidget {
   }) : assert((pagingController != null && future == null) || (pagingController == null && future != null), 'Either pagingController or future must be non-null, but not both and not neither.');
 
   @override
-  State<AppPagedListView<T>> createState() => _AppPagedListViewState<T>();
+  State<SDPagedListView<T>> createState() => _SDPagedListViewState<T>();
 }
 
-class _AppPagedListViewState<T> extends State<AppPagedListView<T>> with AutomaticKeepAliveClientMixin {
+class _SDPagedListViewState<T> extends State<SDPagedListView<T>> with AutomaticKeepAliveClientMixin {
   late final PagingController<int, T> _pagingController;
 
   @override

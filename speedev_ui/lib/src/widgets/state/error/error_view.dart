@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speedev_ui/src/widgets/button/button.dart';
+import 'package:speedev_ui/src/widgets/text/text.dart';
 
 class SDErrorView extends StatelessWidget {
   final String? title;
@@ -18,7 +19,7 @@ class SDErrorView extends StatelessWidget {
             Text(description ?? 'Error'),
             SDButton.primary(
               onPressed: onTryAgain ?? () {},
-              text: 'Try Again',
+              child: const SDText('Try Again'),
             ),
           ],
         )
