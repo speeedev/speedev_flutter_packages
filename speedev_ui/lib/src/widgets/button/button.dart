@@ -102,7 +102,7 @@ class SDButton extends StatelessWidget {
     );
   }
 
-  Widget _buildButtonContent() {
+  Widget _buildButtonContent(BuildContext context) {
     if (_isLoading) {
       return const CircularProgressIndicator.adaptive();
     }
@@ -110,11 +110,39 @@ class SDButton extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (leading != null) ...[leading!, 4.width],
-        if (text != null) SDText(text!, style: textStyle),
-        if (trailing != null) ...[4.width, trailing!],
+        if (leading != null) ...[
+          _wrapWithPrimaryColor(context, leading!),
+          4.width
+        ],
+        if (text != null) SDText(
+          text!, 
+          style: textStyle?.copyWith(
+            color: type == SDButtonType.primary 
+              ? (_isEnabled ? context.colors.onPrimary : context.colors.onPrimary.withValues(alpha: 0.5))
+              : null
+          ) ?? (type == SDButtonType.primary 
+            ? TextStyle(color: _isEnabled ? context.colors.onPrimary : context.colors.onPrimary.withValues(alpha: 0.5))
+            : null),
+        ),
+        if (trailing != null) ...[
+          4.width,
+          _wrapWithPrimaryColor(context, trailing!)
+        ],
       ],
     );
+  }
+
+  Widget _wrapWithPrimaryColor(BuildContext context, Widget child) {
+    if (type == SDButtonType.primary) {
+      return ColorFiltered(
+        colorFilter: ColorFilter.mode(
+          _isEnabled ? context.colors.onPrimary : context.colors.onPrimary.withValues(alpha: 0.5),
+          BlendMode.srcIn,
+        ),
+        child: child,
+      );
+    }
+    return child;
   }
 
   Color _getStateAwareColor(BuildContext context, {double baseAlpha = 1.0, double disabledAlpha = 0.5}) {
@@ -129,7 +157,7 @@ class SDButton extends StatelessWidget {
         disabledColor: _getStateAwareColor(context, baseAlpha: 0.5),
       ),
       onPressed: _isEnabled ? onPressed : null,
-      child: _buildButtonContent(),
+      child: _buildButtonContent(context),
     );
   }
 
@@ -144,7 +172,7 @@ class SDButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: SDRadius.medium()),
       ),
       onPressed: _isEnabled ? onPressed : null,
-      child: _buildButtonContent(),
+      child: _buildButtonContent(context),
     );
   }
 
@@ -158,7 +186,7 @@ class SDButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: SDRadius.medium()),
       ),
       onPressed: _isEnabled ? onPressed : null,
-      child: _buildButtonContent(),
+      child: _buildButtonContent(context),
     );
   }
 
@@ -175,7 +203,7 @@ class SDButton extends StatelessWidget {
           padding: SDPadding.small(),
           child: Icon(
             icon,
-            color: _getStateAwareColor(context),
+            color: _isEnabled ? context.colors.onPrimary : context.colors.onPrimary.withValues(alpha: 0.5),
           ),
         ),
       ),

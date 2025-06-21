@@ -4,13 +4,25 @@ import 'package:speedev_core/src/models/result_model.dart';
 abstract class SDFirebaseAuthService {
   Future<SDResult<User>> signUpWithEmailAndPassword(String email, String password);
 
-  Future<SDResult<User?>> signInWithEmailAndPassword(String email, String password);
+  Future<SDResult<User>> signInWithEmailAndPassword(String email, String password);
 
   Future<SDResult<bool>> signOut();
 
   Future<SDResult<bool>> sendPasswordResetEmail(String email);
 
   Future<SDResult<bool>> sendEmailVerification();
+
+  Future<SDResult<User>> getCurrentUser();
+
+  Future<SDResult<String>> getCurrentUserUid();
+
+  Future<SDResult<String>> getCurrentUserEmail();
+
+  Future<SDResult<bool>> isEmailVerified();
+
+  Future<SDResult<String?>> getCurrentUserToken();
+
+  Future<SDResult<bool>> isUserSignedIn();
 }
 
 class SDFirebaseAuthServiceImpl implements SDFirebaseAuthService {
@@ -27,7 +39,7 @@ class SDFirebaseAuthServiceImpl implements SDFirebaseAuthService {
   }
 
   @override
-  Future<SDResult<User?>> signInWithEmailAndPassword(String email, String password) async {
+  Future<SDResult<User>> signInWithEmailAndPassword(String email, String password) async {
     try {
       final result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
       return SDResult(data: result.user, isSuccess: true);
@@ -71,6 +83,67 @@ class SDFirebaseAuthServiceImpl implements SDFirebaseAuthService {
         return SDResult(data: true, isSuccess: true);
       }
       return SDResult(errorMessage: "User not found", isSuccess: false);
+    } catch (e) {
+      return SDResult(errorMessage: e.toString(), isSuccess: false);
+    }
+  }
+
+  @override
+  Future<SDResult<User>> getCurrentUser() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      return SDResult(data: user, isSuccess: true);
+    } catch (e) {
+      return SDResult(errorMessage: e.toString(), isSuccess: false);
+    }
+  }
+
+  @override
+  Future<SDResult<String>> getCurrentUserUid() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      return SDResult(data: user?.uid ?? "", isSuccess: true);
+    } catch (e) {
+      return SDResult(errorMessage: e.toString(), isSuccess: false);
+    }
+  }
+
+  @override
+  Future<SDResult<String>> getCurrentUserEmail() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      return SDResult(data: user?.email ?? "", isSuccess: true);
+    } catch (e) {
+      return SDResult(errorMessage: e.toString(), isSuccess: false);
+    }
+  }
+
+  @override
+  Future<SDResult<bool>> isEmailVerified() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      return SDResult(data: user?.emailVerified ?? false, isSuccess: true);
+    } catch (e) {
+      return SDResult(errorMessage: e.toString(), isSuccess: false);
+    }
+  }
+
+  @override
+  Future<SDResult<String?>> getCurrentUserToken() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      final token = await user?.getIdToken();
+      return SDResult(data: token, isSuccess: true);
+    } catch (e) {
+      return SDResult(errorMessage: e.toString(), isSuccess: false);
+    }
+  }
+
+  @override
+  Future<SDResult<bool>> isUserSignedIn() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      return SDResult(data: user != null, isSuccess: true);
     } catch (e) {
       return SDResult(errorMessage: e.toString(), isSuccess: false);
     }

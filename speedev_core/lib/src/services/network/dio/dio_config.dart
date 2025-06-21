@@ -19,6 +19,7 @@ class SDDioConfig {
     Duration timeout = const Duration(seconds: 30),
     bool enableLogging = true,
     bool enableTokenAuth = false,
+    String localStorageTokenKey = 'token',
     Map<String, String> headers = const {},
     Map<String, String> queryParameters = const {},
     List<Interceptor>? additionalInterceptors,
@@ -44,7 +45,7 @@ class SDDioConfig {
     }
 
     if (enableTokenAuth) {
-      _dio.interceptors.add(SDAuthInterceptor());
+      _dio.interceptors.add(SDAuthInterceptor(localStorageTokenKey: localStorageTokenKey));
     }
 
     if (additionalInterceptors != null) {
