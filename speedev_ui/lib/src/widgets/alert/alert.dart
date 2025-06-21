@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class SDAleart {
-  static void show(BuildContext context, Widget title, Widget content, List<Widget> actions) {
+  static void show({
+    required BuildContext context,
+    Widget? title,
+    Widget? content,
+    List<Widget>? actions,
+  }) {
     showPlatformDialog(
       context: context,
       builder: (context) => PlatformAlertDialog(

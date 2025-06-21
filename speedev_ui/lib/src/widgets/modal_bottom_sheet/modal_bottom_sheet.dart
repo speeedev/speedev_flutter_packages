@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class SDModalBottomSheet {
-  static void show(BuildContext context, Widget child) {
+  static void show({
+    required BuildContext context,
+    required Widget child,
+  }) {
     showPlatformModalSheet(
       context: context,
       builder: (context) => child,
     );
+  }
+
+  static void close(BuildContext context) {
+    Navigator.of(context).pop();
   }
 }
