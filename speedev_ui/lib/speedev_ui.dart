@@ -1,5 +1,7 @@
 library;
 
+import 'package:flutter/material.dart';
+
 // Extensions
 export 'src/extensions/context_extension.dart';
 export 'src/extensions/int_extension.dart';
@@ -36,6 +38,9 @@ export 'src/widgets/switch/switch.dart';
 export 'src/widgets/text/text.dart';
 export 'src/widgets/text_field/text_form_field.dart';
 export 'src/widgets/dropdown/dropdown.dart';
+export 'src/widgets/appbar/appbar.dart';
+export 'src/widgets/form_section/form_section.dart';
+export 'src/widgets/form_section/form_section_item.dart';
 
 // Initialization
 export 'src/init/easy_loading.dart';

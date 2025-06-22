@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:speedev_ui/speedev_ui.dart';
-import 'package:speedev_ui/src/extensions/context_extension.dart';
-import 'package:speedev_ui/src/theme/values/sd_radius.dart';
 
 enum SDButtonType { primary, secondary, text, icon }
 
@@ -26,6 +24,16 @@ class SDButton extends StatefulWidget {
     this.padding,
   }) : _type = SDButtonType.primary;
 
+  const SDButton.icon({
+    super.key,
+    this.onPressed,
+    this.state = SDButtonState.enabled,
+  }) : _type = SDButtonType.icon,
+       child = const Icon(Icons.add),
+       prefix = null,
+       suffix = null,
+       padding = null;
+
   @override
   State<SDButton> createState() => _SDButtonState();
 }
@@ -36,6 +44,8 @@ class _SDButtonState extends State<SDButton> {
     switch (widget._type) {
       case SDButtonType.primary:
         return _buildPrimaryButton();
+      case SDButtonType.icon:
+        return _buildIconButton();
       default:
         return Container();
     }
@@ -111,6 +121,15 @@ class _SDButtonState extends State<SDButton> {
             ],
           ),
       ],
+    );
+  }
+
+  Widget _buildIconButton() {
+    return PlatformIconButton(
+      onPressed: widget.onPressed,
+      icon: widget.child,
+      color: context.colors.primary,
+      disabledColor: context.colors.primary.withValues(alpha: 0.5),
     );
   }
 }
