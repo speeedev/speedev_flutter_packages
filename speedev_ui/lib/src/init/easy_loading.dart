@@ -2,20 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class SDEasyLoading {
-  static void initialize() {
-    _initializeEasyLoading();
-  }
-
-  static void _initializeEasyLoading() {
+  static TransitionBuilder initializeEasyLoading() {
     EasyLoading.instance
       ..indicatorType = EasyLoadingIndicatorType.fadingCircle
       ..loadingStyle = EasyLoadingStyle.dark
       ..maskType = EasyLoadingMaskType.black
       ..userInteractions = false
-      ..dismissOnTap = false
-      ..toastPosition = EasyLoadingToastPosition.center;
-    
-    EasyLoading.init();
+      ..toastPosition = EasyLoadingToastPosition.center
+      ..dismissOnTap = false;
+
+    return EasyLoading.init();
   }
 
   static void show([String? message]) {
@@ -34,5 +30,3 @@ class SDEasyLoading {
     EasyLoading.showError(message);
   }
 }
-
-TransitionBuilder getEasyLoadingBuilder() => EasyLoading.init();
