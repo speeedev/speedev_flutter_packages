@@ -7,16 +7,19 @@ class SDEasyLoading {
   }
 
   static void _initializeEasyLoading() {
-    EasyLoading.instance.indicatorType = EasyLoadingIndicatorType.fadingCircle;
-    EasyLoading.instance.loadingStyle = EasyLoadingStyle.dark;
-    EasyLoading.instance.maskType = EasyLoadingMaskType.black;
-    EasyLoading.instance.userInteractions = false;
-    EasyLoading.instance.dismissOnTap = false;
+    EasyLoading.instance
+      ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+      ..loadingStyle = EasyLoadingStyle.dark
+      ..maskType = EasyLoadingMaskType.black
+      ..userInteractions = false
+      ..dismissOnTap = false
+      ..toastPosition = EasyLoadingToastPosition.center;
+    
     EasyLoading.init();
   }
 
-  static void show() {
-    EasyLoading.show();
+  static void show([String? message]) {
+    EasyLoading.show(status: message);
   }
 
   static void dismiss() {
