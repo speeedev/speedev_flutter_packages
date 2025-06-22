@@ -13,6 +13,7 @@ class SDDropDown<T> extends StatefulWidget {
   final String? cancelText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final bool? miniWidget;
 
   const SDDropDown({
     super.key,
@@ -25,6 +26,7 @@ class SDDropDown<T> extends StatefulWidget {
     this.cancelText,
     this.prefixIcon,
     this.suffixIcon,
+    this.miniWidget = false,
   });
 
   @override
@@ -38,37 +40,72 @@ class _SDDropDownState<T> extends State<SDDropDown<T>> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => _showSelectionSheet(context),
-      child: Container(
-        padding: SDPaddingValues.large.paddingValue.toEdgeInsets,
-        decoration: BoxDecoration(
-          color: widget.backgroundColor ?? context.theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(SDRadiusValues.small.radiusValue),
-        ),
-        child: Row(
-          children: [
-            if (widget.prefixIcon != null) ...[
-              widget.prefixIcon!,
-              8.width,
-            ],
-            Expanded(
-              child: SDText(
-                selectedItem?.toString() ?? widget.hintText ?? " ",
-                style: widget.textStyle?.copyWith(
-                      color: selectedItem != null ? context.theme.colorScheme.onSurface : context.theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                    ) ??
-                    context.theme.textTheme.bodyMedium?.copyWith(
-                      color: selectedItem != null ? context.theme.colorScheme.onSurface : context.theme.colorScheme.onSurface.withValues(alpha: 0.6),
+      child: widget.miniWidget == true
+          ? IntrinsicWidth(
+              child: Container(
+                padding: SDPaddingValues.small.paddingValue.toEdgeInsets,
+                decoration: BoxDecoration(
+                  color: widget.backgroundColor ?? context.theme.colorScheme.surface,
+                  borderRadius: BorderRadius.circular(SDRadiusValues.small.radiusValue),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (widget.prefixIcon != null) ...[
+                      widget.prefixIcon!,
+                      8.width,
+                    ],
+                    Flexible(
+                      child: SDText(
+                        selectedItem?.toString() ?? widget.hintText ?? " ",
+                        style: widget.textStyle?.copyWith(
+                              color: selectedItem != null ? context.theme.colorScheme.onSurface : context.theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                            ) ??
+                            context.theme.textTheme.bodyMedium?.copyWith(
+                              color: selectedItem != null ? context.theme.colorScheme.onSurface : context.theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                            ),
+                      ),
                     ),
+                    widget.suffixIcon ??
+                        Icon(
+                          Icons.keyboard_arrow_down,
+                          color: context.theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                        ),
+                  ],
+                ),
+              ),
+            )
+          : Container(
+              padding: SDPaddingValues.large.paddingValue.toEdgeInsets,
+              decoration: BoxDecoration(
+                color: widget.backgroundColor ?? context.theme.colorScheme.surface,
+                borderRadius: BorderRadius.circular(SDRadiusValues.small.radiusValue),
+              ),
+              child: Row(
+                children: [
+                  if (widget.prefixIcon != null) ...[
+                    widget.prefixIcon!,
+                    8.width,
+                  ],
+                  Expanded(
+                    child: SDText(
+                      selectedItem?.toString() ?? widget.hintText ?? " ",
+                      style: widget.textStyle?.copyWith(
+                            color: selectedItem != null ? context.theme.colorScheme.onSurface : context.theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                          ) ??
+                          context.theme.textTheme.bodyMedium?.copyWith(
+                            color: selectedItem != null ? context.theme.colorScheme.onSurface : context.theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                          ),
+                    ),
+                  ),
+                  widget.suffixIcon ??
+                      Icon(
+                        Icons.keyboard_arrow_down,
+                        color: context.theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                      ),
+                ],
               ),
             ),
-            widget.suffixIcon ??
-                Icon(
-                  Icons.keyboard_arrow_down,
-                  color: context.theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                ),
-          ],
-        ),
-      ),
     );
   }
 
