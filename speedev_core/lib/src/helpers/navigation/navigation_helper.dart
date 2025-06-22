@@ -10,6 +10,11 @@ class SDNavHelper {
     this.router = router;
   }
 
+  static SDNavHelper? _instance;
+  factory SDNavHelper() => _instance ??= SDNavHelper._();
+
+  SDNavHelper._();
+
   Future<void> navigate(BuildContext context, {required PageRouteInfo route, Map<String, dynamic>? params}) async {
     await router.push(route.copyWith(params: params));
   }
