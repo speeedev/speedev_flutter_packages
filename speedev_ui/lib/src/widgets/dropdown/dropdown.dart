@@ -41,6 +41,11 @@ class _SDDropDownState<T> extends State<SDDropDown<T>> {
   @override
   void initState() {
     super.initState();
+    if (widget.initialValue != null && !widget.items.contains(widget.initialValue)) {
+      throw ArgumentError(
+        'InitialValue "${widget.initialValue}" is not found in the items list: ${widget.items}',
+      );
+    }
     selectedItem = widget.initialValue;
   }
 
