@@ -14,6 +14,7 @@ class SDDropDown<T> extends StatefulWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool? miniWidget;
+  final T? initialValue;
 
   const SDDropDown({
     super.key,
@@ -27,6 +28,7 @@ class SDDropDown<T> extends StatefulWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.miniWidget = false,
+    this.initialValue,
   });
 
   @override
@@ -35,6 +37,12 @@ class SDDropDown<T> extends StatefulWidget {
 
 class _SDDropDownState<T> extends State<SDDropDown<T>> {
   T? selectedItem;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedItem = widget.initialValue;
+  }
 
   @override
   Widget build(BuildContext context) {
