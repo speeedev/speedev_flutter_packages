@@ -12,6 +12,7 @@ class SDEasyLoading {
       ..loadingStyle = EasyLoadingStyle.dark
       ..maskType = EasyLoadingMaskType.black
       ..userInteractions = false
+      ..dismissOnTap = false
       ..toastPosition = EasyLoadingToastPosition.center;
     
     EasyLoading.init();
