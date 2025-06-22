@@ -25,14 +25,14 @@ class SDFormSection extends StatelessWidget {
       backgroundColor: backgroundColor ?? context.colors.surfaceContainer,
       header: header,
       footer: footer,
-      margin: margin ?? SDPadding.large(),
+      margin: margin ?? EdgeInsets.symmetric(horizontal: SDPadding.large().horizontal),
       children: children,
     );
   }
 
   Widget _buildMaterialFormSection(BuildContext context) {
     return Container(
-      margin: margin ?? SDPadding.large(),
+      margin: margin ?? EdgeInsets.symmetric(horizontal: SDPadding.large().horizontal),
       decoration: BoxDecoration(
         borderRadius: SDRadius.large(),
         color: backgroundColor ?? context.colors.surfaceContainer,
