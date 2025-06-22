@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class SDThemeManager extends ChangeNotifier {
+class SDThemeProvider extends ChangeNotifier {
   late ThemeData _themeData;
 
-  SDThemeManager({required ThemeData themeData}) : _themeData = themeData;
+  SDThemeProvider({required ThemeData themeData}) : _themeData = themeData;
 
   ThemeData get themeData => _themeData;
 

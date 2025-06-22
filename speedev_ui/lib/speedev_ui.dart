@@ -36,6 +36,10 @@ export 'src/widgets/switch/switch.dart';
 export 'src/widgets/text/text.dart';
 export 'src/widgets/text_field/text_form_field.dart';
 export 'src/widgets/dropdown/dropdown.dart';
+export 'src/widgets/theme/theme_view.dart';
+
+// Providers
+export 'src/providers/theme_provider.dart';
 
 // Initialization
 export 'src/init/easy_loading.dart';
