@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:speedev_ui/src/theme/sd_padding.dart';
+import 'package:speedev_ui/src/theme/values/sd_padding.dart';
 
 class SDScaffold extends StatelessWidget {
   final Widget body;

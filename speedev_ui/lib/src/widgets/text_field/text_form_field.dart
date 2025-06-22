@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speedev_ui/src/extensions/context_extension.dart';
-import 'package:speedev_ui/src/theme/sd_padding.dart';
-import 'package:speedev_ui/src/theme/sd_radius.dart';
+import 'package:speedev_ui/src/theme/values/sd_padding.dart';
+import 'package:speedev_ui/src/theme/values/sd_radius.dart';
 
 class SDTextInput extends StatefulWidget {
   final TextEditingController? controller;
