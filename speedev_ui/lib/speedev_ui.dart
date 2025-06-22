@@ -41,6 +41,9 @@ export 'src/widgets/dropdown/dropdown.dart';
 export 'src/widgets/appbar/appbar.dart';
 export 'src/widgets/form_section/form_section.dart';
 export 'src/widgets/form_section/form_section_item.dart';
+export 'src/widgets/list_section/list_section.dart';
+export 'src/widgets/list_section/list_section_item.dart';
+
 
 // Initialization
 export 'src/init/easy_loading.dart';
