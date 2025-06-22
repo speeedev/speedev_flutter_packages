@@ -1,18 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:speedev_ui/src/extensions/context_extension.dart';
-import 'package:speedev_ui/src/theme/values/sd_radius.dart';
-import 'package:speedev_ui/src/widgets/form_section/form_section_item.dart';
+import 'package:speedev_ui/speedev_ui.dart';
 import 'package:flutter/material.dart';
 
 class SDFormSection extends StatelessWidget {
   final Widget? header;
   final Widget? footer;
   final List<SDFormSectionItem> children;
-  final EdgeInsets margin;
+  final EdgeInsets? margin;
   final Color? backgroundColor;
 
-  const SDFormSection({super.key, this.header, this.footer, required this.children, this.margin = EdgeInsets.zero, this.backgroundColor});
+  const SDFormSection({super.key, this.header, this.footer, required this.children, this.margin, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +25,14 @@ class SDFormSection extends StatelessWidget {
       backgroundColor: backgroundColor ?? context.colors.surfaceContainer,
       header: header,
       footer: footer,
-      margin: margin,
+      margin: margin ?? SDPadding.large(),
       children: children,
     );
   }
 
   Widget _buildMaterialFormSection(BuildContext context) {
     return Container(
-      margin: margin,
+      margin: margin ?? SDPadding.large(),
       decoration: BoxDecoration(
         borderRadius: SDRadius.large(),
         color: backgroundColor ?? context.colors.surfaceContainer,
