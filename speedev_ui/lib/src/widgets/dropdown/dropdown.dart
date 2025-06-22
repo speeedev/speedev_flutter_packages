@@ -3,52 +3,57 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:speedev_ui/speedev_ui.dart';
 
-class SDDropDown<T> extends StatelessWidget {
+class SDDropDown<T> extends StatefulWidget {
   final List<T> items;
-  final T? selectedItem;
   final Function(T) onSelected;
   final Color? backgroundColor;
   final TextStyle? textStyle;
   final String? hintText;
+  final String? titleText;
+  final String? cancelText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
-
 
   const SDDropDown({
     super.key,
     required this.items,
-    this.selectedItem,
     required this.onSelected,
     this.backgroundColor,
     this.textStyle,
     this.hintText,
+    this.titleText,
+    this.cancelText,
     this.prefixIcon,
     this.suffixIcon,
   });
+
+  @override
+  State<SDDropDown<T>> createState() => _SDDropDownState<T>();
+}
+
+class _SDDropDownState<T> extends State<SDDropDown<T>> {
+  T? selectedItem;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => _showSelectionSheet(context),
       child: Container(
-        padding: SDPaddingValues.medium.paddingValue.toEdgeInsetsOnlyHorizontal,
+        padding: SDPaddingValues.large.paddingValue.toEdgeInsets,
         decoration: BoxDecoration(
-          color: backgroundColor ?? context.theme.colorScheme.surface,
-          border: Border.all(
-            color: context.theme.colorScheme.outline,
-          ),
+          color: widget.backgroundColor ?? context.theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(SDRadiusValues.small.radiusValue),
         ),
         child: Row(
           children: [
-            if (prefixIcon != null) ...[
-              prefixIcon!,
+            if (widget.prefixIcon != null) ...[
+              widget.prefixIcon!,
               8.width,
             ],
             Expanded(
               child: SDText(
-                selectedItem?.toString() ?? hintText ?? 'Seçiniz',
-                style: textStyle?.copyWith(
+                selectedItem?.toString() ?? widget.hintText ?? " ",
+                style: widget.textStyle?.copyWith(
                       color: selectedItem != null ? context.theme.colorScheme.onSurface : context.theme.colorScheme.onSurface.withValues(alpha: 0.6),
                     ) ??
                     context.theme.textTheme.bodyMedium?.copyWith(
@@ -56,7 +61,7 @@ class SDDropDown<T> extends StatelessWidget {
                     ),
               ),
             ),
-            suffixIcon ??
+            widget.suffixIcon ??
                 Icon(
                   Icons.keyboard_arrow_down,
                   color: context.theme.colorScheme.onSurface.withValues(alpha: 0.6),
@@ -105,7 +110,7 @@ class SDDropDown<T> extends StatelessWidget {
             height: 4,
             decoration: BoxDecoration(
               color: context.theme.colorScheme.onSurface.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(SDRadiusValues.small.radiusValue),
             ),
           ),
           16.height,
@@ -114,8 +119,8 @@ class SDDropDown<T> extends StatelessWidget {
             child: Row(
               children: [
                 SDText(
-                  hintText ?? 'Seçiniz',
-                  style: textStyle?.copyWith(
+                  widget.titleText ?? " ",
+                  style: widget.textStyle?.copyWith(
                         fontWeight: FontWeight.w500,
                       ) ??
                       context.theme.textTheme.bodyMedium?.copyWith(
@@ -137,15 +142,15 @@ class SDDropDown<T> extends StatelessWidget {
           Flexible(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: items.length,
+              itemCount: widget.items.length,
               itemBuilder: (context, index) {
-                final item = items[index];
+                final item = widget.items[index];
                 final isSelected = item == selectedItem;
 
                 return ListTile(
                   title: SDText(
                     item.toString(),
-                    style: textStyle?.copyWith(
+                    style: widget.textStyle?.copyWith(
                           fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                           color: isSelected ? context.theme.colorScheme.primary : context.theme.colorScheme.onSurface,
                         ) ??
@@ -161,8 +166,11 @@ class SDDropDown<T> extends StatelessWidget {
                         )
                       : null,
                   onTap: () {
-                    onSelected(item);
                     Navigator.pop(context);
+                    setState(() {
+                      selectedItem = item;
+                    });
+                    widget.onSelected(item);
                   },
                 );
               },
@@ -177,27 +185,30 @@ class SDDropDown<T> extends StatelessWidget {
   Widget _buildCupertinoActionSheet(BuildContext context) {
     return CupertinoActionSheet(
       title: SDText(
-        hintText ?? 'Seçiniz',
-        style: textStyle?.copyWith(
+        widget.titleText ?? " ",
+        style: widget.textStyle?.copyWith(
               fontWeight: FontWeight.w500,
             ) ??
             context.theme.textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.w500,
             ),
       ),
-      actions: items.map((item) {
+      actions: widget.items.map((item) {
         final isSelected = item == selectedItem;
         return CupertinoActionSheetAction(
           onPressed: () {
-            onSelected(item);
             Navigator.pop(context);
+            setState(() {
+              selectedItem = item;
+            });
+            widget.onSelected(item);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SDText(
                 item.toString(),
-                style: textStyle?.copyWith(
+                style: widget.textStyle?.copyWith(
                       fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                       color: isSelected ? CupertinoColors.activeBlue : CupertinoColors.label,
                     ) ??
@@ -219,7 +230,7 @@ class SDDropDown<T> extends StatelessWidget {
       cancelButton: CupertinoActionSheetAction(
         onPressed: () => Navigator.pop(context),
         child: SDText(
-          'İptal',
+          widget.cancelText ?? "Cancel",
           style: context.theme.textTheme.bodyMedium?.copyWith(
             color: CupertinoColors.destructiveRed,
           ),
