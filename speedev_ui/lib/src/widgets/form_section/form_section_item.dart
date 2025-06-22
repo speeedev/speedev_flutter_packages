@@ -4,13 +4,13 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:speedev_ui/speedev_ui.dart';
 
 class SDFormSectionItem extends StatelessWidget {
-  final Widget trailing;
+  final Widget? trailing;
   final Widget? prefix;
   final EdgeInsetsGeometry? padding;
   final Widget? helper;
   final void Function()? onTap;
 
-  const SDFormSectionItem({super.key, required this.trailing, this.prefix, this.padding, this.helper, this.onTap});
+  const SDFormSectionItem({super.key, this.trailing, this.prefix, this.padding, this.helper, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +24,10 @@ class SDFormSectionItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: CupertinoFormRow(
-        prefix: prefix,
-        padding: padding,
-        helper: helper,
-        child: trailing,
+        prefix: prefix ?? const SizedBox.shrink(),
+        padding: padding ?? EdgeInsets.zero,
+        helper: helper ?? const SizedBox.shrink(),
+        child: trailing ?? const SizedBox.shrink(),
       ),
     );
   }
@@ -36,7 +36,7 @@ class SDFormSectionItem extends StatelessWidget {
     return SDListTile(
       title: prefix ?? const SizedBox.shrink(),
       subtitle: helper ?? const SizedBox.shrink(),
-      trailing: trailing,
+      trailing: trailing ?? const SizedBox.shrink(),
       leading: prefix ?? const SizedBox.shrink(),
       onTap: onTap,
     );
