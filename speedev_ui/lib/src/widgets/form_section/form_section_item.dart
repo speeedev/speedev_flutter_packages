@@ -16,9 +16,9 @@ class SDFormSectionItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return SDListTile(
       title: title ?? const SizedBox.shrink(),
-      subtitle: subtitle ?? const SizedBox.shrink(),
-      trailing: trailing ?? const SizedBox.shrink(),
-      leading: prefix ?? const SizedBox.shrink(),
+      subtitle: subtitle,
+      trailing: trailing,
+      leading: prefix,
       onTap: onTap,
     );
   }
