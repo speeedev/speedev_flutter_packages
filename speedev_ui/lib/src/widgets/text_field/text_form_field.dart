@@ -67,7 +67,7 @@ class _SDTextInputState extends State<SDTextInput> {
   Widget _buildMaterialTextField() {
     return TextFormField(
       controller: widget.controller,
-      style: widget.style,
+      style: widget.style ?? context.theme.textTheme.bodyMedium?.copyWith(color: context.colors.onSurface),
       textInputAction: widget.textInputAction,
       keyboardType: widget.keyboardType,
       obscureText: widget.obscureText ?? false,
