@@ -15,3 +15,4 @@ export 'src/helpers/validator/validator_helper.dart';
 export 'src/helpers/speedev_core_functions.dart';
 export 'src/helpers/logger/logger_helper.dart';
 export 'src/services/firebase/storage/storage_service.dart';
+export 'src/helpers/storage/local_storage_helper.dart';
