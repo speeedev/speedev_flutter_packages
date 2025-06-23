@@ -23,7 +23,7 @@ class SDFormSection extends StatelessWidget {
 
   Widget _buildCupertinoFormSection(BuildContext context) {
     return Padding(
-      padding: margin ?? EdgeInsets.symmetric(horizontal: SDPadding.large().horizontal, vertical: SDPadding.medium().vertical),
+      padding: margin ?? EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.small().vertical),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
         child: CupertinoFormSection(
@@ -33,7 +33,7 @@ class SDFormSection extends StatelessWidget {
           margin: EdgeInsets.zero,
           children: children
               .map((child) => Padding(
-                    padding: itemPadding ?? EdgeInsets.symmetric(horizontal: SDPadding.large().horizontal, vertical: SDPadding.medium().vertical),
+                    padding: itemPadding ?? EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.small().vertical),
                     child: child,
                   ))
               .toList(),
@@ -44,7 +44,7 @@ class SDFormSection extends StatelessWidget {
 
   Widget _buildMaterialFormSection(BuildContext context) {
     return Padding(
-      padding: margin ?? EdgeInsets.symmetric(horizontal: SDPadding.large().horizontal, vertical: SDPadding.medium().vertical),
+      padding: margin ?? EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.small().vertical),
       child: Container(
         padding: EdgeInsets.zero,
         decoration: BoxDecoration(
@@ -58,7 +58,7 @@ class SDFormSection extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) => Padding(
-                padding: itemPadding ?? EdgeInsets.symmetric(horizontal: SDPadding.large().horizontal, vertical: SDPadding.medium().vertical),
+                padding: itemPadding ?? EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.small().vertical),
                 child: children[index],
               ),
               separatorBuilder: (context, index) => const Divider(height: 1, thickness: 0.5),
