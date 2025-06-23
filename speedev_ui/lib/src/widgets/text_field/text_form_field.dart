@@ -107,8 +107,8 @@ class _SDTextInputState extends State<SDTextInput> {
     return CupertinoTextField(
       controller: widget.controller,
       placeholder: widget.hintText,
-      style: widget.style,
-      placeholderStyle: widget.style != null ? widget.style!.copyWith(color: context.colors.onSurface.withValues(alpha: 0.5)) : TextStyle(color: context.colors.onSurface.withValues(alpha: 0.5)),
+      style: widget.style ?? context.theme.textTheme.bodyMedium?.copyWith(color: context.colors.onSurface),
+      placeholderStyle: widget.style != null ? widget.style!.copyWith(color: context.colors.onSurface.withValues(alpha: 0.5)) : context.theme.textTheme.bodyMedium?.copyWith(color: context.colors.onSurface.withValues(alpha: 0.5)),
       textInputAction: widget.textInputAction,
       keyboardType: widget.keyboardType,
       obscureText: widget.obscureText ?? false,
