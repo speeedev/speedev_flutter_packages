@@ -6,11 +6,12 @@ import 'package:speedev_ui/speedev_ui.dart';
 class SDFormSectionItem extends StatelessWidget {
   final Widget? trailing;
   final Widget? prefix;
+  final Widget? title;
   final EdgeInsetsGeometry? padding;
   final Widget? helper;
   final void Function()? onTap;
 
-  const SDFormSectionItem({super.key, this.trailing, this.prefix, this.padding, this.helper, this.onTap});
+  const SDFormSectionItem({super.key, this.trailing, this.prefix, this.title, this.padding, this.helper, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +22,18 @@ class SDFormSectionItem extends StatelessWidget {
   }
 
   Widget _buildCupertinoFormSectionItem() {
-    return InkWell(
+    return SDListTile(
+      title: title ?? const SizedBox.shrink(),
+      subtitle: helper ?? const SizedBox.shrink(),
+      trailing: trailing ?? const SizedBox.shrink(),
+      leading: prefix ?? const SizedBox.shrink(),
       onTap: onTap,
-      child: CupertinoFormRow(
-        prefix: prefix ?? const SizedBox.shrink(),
-        padding: padding ?? EdgeInsets.zero,
-        helper: helper ?? const SizedBox.shrink(),
-        child: trailing ?? const SizedBox.shrink(),
-      ),
     );
   }
 
   Widget _buildMaterialFormSectionItem() {
     return SDListTile(
-      title: prefix ?? const SizedBox.shrink(),
+      title: title ?? const SizedBox.shrink(),
       subtitle: helper ?? const SizedBox.shrink(),
       trailing: trailing ?? const SizedBox.shrink(),
       leading: prefix ?? const SizedBox.shrink(),
