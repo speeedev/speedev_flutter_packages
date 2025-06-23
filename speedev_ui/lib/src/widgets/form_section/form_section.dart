@@ -8,9 +8,10 @@ class SDFormSection extends StatelessWidget {
   final Widget? footer;
   final List<SDFormSectionItem> children;
   final EdgeInsets? margin;
+  final EdgeInsets? itemPadding;
   final Color? backgroundColor;
 
-  const SDFormSection({super.key, this.header, this.footer, required this.children, this.margin, this.backgroundColor});
+  const SDFormSection({super.key, this.header, this.footer, required this.children, this.margin, this.backgroundColor, this.itemPadding});
 
   @override
   Widget build(BuildContext context) {
@@ -21,33 +22,51 @@ class SDFormSection extends StatelessWidget {
   }
 
   Widget _buildCupertinoFormSection(BuildContext context) {
-    return CupertinoFormSection(
-      backgroundColor: backgroundColor ?? context.colors.surfaceContainer,
-      header: header,
-      footer: footer,
-      margin: margin ?? EdgeInsets.symmetric(horizontal: SDPadding.large().horizontal),
-      children: children,
+    return Padding(
+      padding: margin ?? EdgeInsets.symmetric(horizontal: SDPadding.large().horizontal, vertical: SDPadding.medium().vertical),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: CupertinoFormSection(
+          backgroundColor: backgroundColor ?? context.colors.surfaceContainer,
+          header: header,
+          footer: footer,
+          margin: EdgeInsets.zero,
+          children: children
+              .map((child) => Padding(
+                    padding: itemPadding ?? EdgeInsets.symmetric(horizontal: SDPadding.large().horizontal, vertical: SDPadding.medium().vertical),
+                    child: child,
+                  ))
+              .toList(),
+        ),
+      ),
     );
   }
 
   Widget _buildMaterialFormSection(BuildContext context) {
-    return Container(
-      margin: margin ?? EdgeInsets.symmetric(horizontal: SDPadding.large().horizontal),
-      decoration: BoxDecoration(
-        borderRadius: SDRadius.large(),
-        color: backgroundColor ?? context.colors.surfaceContainer,
-      ),
-      child: Column(
-        children: [
-          if (header != null) header!,
-          ListView.separated(
-            shrinkWrap: true,
-            itemBuilder: (context, index) => children[index],
-            separatorBuilder: (context, index) => const Divider(),
-            itemCount: children.length,
-          ),
-          if (footer != null) footer!,
-        ],
+    return Padding(
+      padding: margin ?? EdgeInsets.symmetric(horizontal: SDPadding.large().horizontal, vertical: SDPadding.medium().vertical),
+      child: Container(
+        padding: EdgeInsets.zero,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: backgroundColor ?? context.colors.surfaceContainer,
+        ),
+        child: Column(
+          children: [
+            if (header != null) header!,
+            ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) => Padding(
+                padding: itemPadding ?? EdgeInsets.symmetric(horizontal: SDPadding.large().horizontal, vertical: SDPadding.medium().vertical),
+                child: children[index],
+              ),
+              separatorBuilder: (context, index) => const Divider(height: 1, thickness: 0.5),
+              itemCount: children.length,
+            ),
+            if (footer != null) footer!,
+          ],
+        ),
       ),
     );
   }
