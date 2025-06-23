@@ -241,6 +241,7 @@ class _SDDropDownState<T> extends State<SDDropDown<T>> {
             ) ??
             context.theme.textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.w500,
+              color: context.theme.colorScheme.onSurface,
             ),
       ),
       actions: widget.items.map((item) {
@@ -260,11 +261,11 @@ class _SDDropDownState<T> extends State<SDDropDown<T>> {
                 item.toString(),
                 style: widget.textStyle?.copyWith(
                       fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                      color: isSelected ? CupertinoColors.activeBlue : CupertinoColors.label,
+                      color: isSelected ? CupertinoColors.activeBlue : context.theme.colorScheme.onSurface,
                     ) ??
                     context.theme.textTheme.bodyMedium?.copyWith(
                       fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                      color: isSelected ? CupertinoColors.activeBlue : CupertinoColors.label,
+                      color: isSelected ? CupertinoColors.activeBlue : context.theme.colorScheme.onSurface,
                     ),
               ),
               if (isSelected)
