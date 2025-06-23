@@ -4,7 +4,7 @@ enum SDRadiusValues {
   none(radiusValue: 0),
   small(radiusValue: 5),
   medium(radiusValue: 10),
-  large(radiusValue: 15),
+  large(radiusValue: 16),
   rounded(radiusValue: 50);
 
   final double radiusValue;

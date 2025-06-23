@@ -24,20 +24,25 @@ class SDFormSection extends StatelessWidget {
   Widget _buildCupertinoFormSection(BuildContext context) {
     return Padding(
       padding: margin ?? EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.small().vertical),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: CupertinoFormSection(
-          backgroundColor: backgroundColor ?? context.colors.surfaceContainer,
-          header: header,
-          footer: footer,
-          margin: EdgeInsets.zero,
-          children: children
-              .map((child) => Padding(
-                    padding: itemPadding ?? EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.small().vertical),
-                    child: child,
-                  ))
-              .toList(),
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (header != null) header!,
+          ClipRRect(
+            borderRadius: SDRadius.large(),
+            child: CupertinoFormSection.insetGrouped(
+              backgroundColor: backgroundColor ?? context.colors.surfaceContainer,
+              margin: EdgeInsets.zero,
+              footer: footer,
+              children: children
+                  .map((child) => Padding(
+                        padding: itemPadding ?? EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.small().vertical),
+                        child: child,
+                      ))
+                  .toList(),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -45,28 +50,32 @@ class SDFormSection extends StatelessWidget {
   Widget _buildMaterialFormSection(BuildContext context) {
     return Padding(
       padding: margin ?? EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.small().vertical),
-      child: Container(
-        padding: EdgeInsets.zero,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          color: backgroundColor ?? context.colors.surfaceContainer,
-        ),
-        child: Column(
-          children: [
-            if (header != null) header!,
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => Padding(
-                padding: itemPadding ?? EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.small().vertical),
-                child: children[index],
-              ),
-              separatorBuilder: (context, index) => const Divider(height: 1, thickness: 0.5),
-              itemCount: children.length,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (header != null) header!,
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: SDRadius.large(),
+              color: backgroundColor ?? context.colors.surfaceContainer,
             ),
-            if (footer != null) footer!,
-          ],
-        ),
+            child: Column(
+              children: [
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => Padding(
+                    padding: itemPadding ?? EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.small().vertical),
+                    child: children[index],
+                  ),
+                  separatorBuilder: (context, index) => const Divider(height: 1, thickness: 0.5),
+                  itemCount: children.length,
+                ),
+                if (footer != null) footer!,
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
