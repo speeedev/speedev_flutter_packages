@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:speedev_ui/speedev_ui.dart';
 
-class SDAppBar extends StatelessWidget {
+class SDAppBar extends PlatformAppBar {
+  @override
   final Widget? title;
+  @override
   final Color? backgroundColor;
+  @override
   final Widget? leading;
   final List<Widget>? actions;
+  @override
   final bool? automaticallyImplyLeading;
 
-  const SDAppBar({
+  SDAppBar({
     super.key,
     this.title,
     this.backgroundColor,
     this.leading,
     this.actions,
-    this.automaticallyImplyLeading,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return PlatformAppBar(
-      title: title ?? SDText(""),
-      backgroundColor: backgroundColor,
-      leading: leading,
-      trailingActions: actions,
-    );
-  }
+    this.automaticallyImplyLeading = true,
+  }) : super(
+          title: title,
+          backgroundColor: backgroundColor,
+          leading: leading ?? const Icon(Icons.arrow_back),
+          trailingActions: actions ?? [],
+          automaticallyImplyLeading: automaticallyImplyLeading,
+        );
 }
