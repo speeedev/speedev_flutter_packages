@@ -19,7 +19,7 @@ abstract class BaseViewModel extends ChangeNotifier {
     safeExecute(
       operation: operation,
       onError: (e, stackTrace) {
-        showErrorDialog();
+        showErrorDialog("");
         SDFirebaseCrashlyticsService().recordCrash(error: e, stackTrace: stackTrace);
       },
     );
@@ -40,8 +40,8 @@ abstract class BaseViewModel extends ChangeNotifier {
     await EasyLoading.showSuccess(message);
   }
 
-  Future<void> showErrorDialog() async {
+  Future<void> showErrorDialog(String message) async {
     isError = true;
-    await EasyLoading.showError("");
+    await EasyLoading.showError(message);
   }
 }
