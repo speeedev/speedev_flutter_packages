@@ -60,6 +60,16 @@ class SDTextInput extends StatefulWidget {
 }
 
 class _SDTextInputState extends State<SDTextInput> {
+  String? _errorText;
+
+  void _validateText(String value) {
+    if (widget.validator != null) {
+      setState(() {
+        _errorText = widget.validator!(value);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Platform.isAndroid ? _buildMaterialTextField() : _buildCupertinoTextField();
@@ -105,45 +115,60 @@ class _SDTextInputState extends State<SDTextInput> {
   }
 
   Widget _buildCupertinoTextField() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CupertinoTextField(
-          controller: widget.controller,
-          placeholder: widget.hintText,
-          style: widget.style ?? context.theme.textTheme.bodyMedium?.copyWith(color: context.colors.onSurface),
-          placeholderStyle: widget.style != null ? widget.style!.copyWith(color: context.colors.onSurface.withValues(alpha: 0.5)) : context.theme.textTheme.bodyMedium?.copyWith(color: context.colors.onSurface.withValues(alpha: 0.5)),
-          textInputAction: widget.textInputAction,
-          keyboardType: widget.keyboardType,
-          obscureText: widget.obscureText ?? false,
-          enabled: widget.enabled ?? true,
-          readOnly: widget.readOnly ?? false,
-          autofocus: widget.autofocus ?? false,
-          minLines: widget.minLines,
-          maxLines: widget.maxLines,
-          maxLength: widget.maxLength,
-          onChanged: widget.onChanged,
-          onEditingComplete: widget.onEditingComplete,
-          onTap: widget.onTap,
-          onSubmitted: widget.onSubmitted,
-          inputFormatters: widget.inputFormatter != null ? [widget.inputFormatter!] : null,
-          textAlign: TextAlign.start,
-          textAlignVertical: TextAlignVertical.center,
-          cursorColor: context.colors.primary,
-          prefix: widget.prefix,
-          padding: EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.medium().vertical),
-          decoration: BoxDecoration(
-            color: context.colors.surfaceContainerLow,
-            borderRadius: SDRadius.medium(),
-            border: Border.all(color: Colors.transparent),
-          ),
-        ),
-        if (widget.validator != null)
-          Padding(
-            padding: EdgeInsets.only(top: SDPadding.small().vertical),
-            child: SDText(widget.validator!(widget.controller?.text) ?? '', style: context.theme.textTheme.bodySmall?.copyWith(color: context.colors.error), textAlign: TextAlign.start),
-          ),
-      ],
+    return FormField<String>(
+      initialValue: widget.controller?.text,
+      validator: widget.validator,
+      builder: (FormFieldState<String> field) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (widget.labelText != null)
+              Padding(
+                padding: EdgeInsets.only(bottom: SDPadding.small().vertical),
+                child: SDText(widget.labelText!, style: context.theme.textTheme.labelMedium?.copyWith(color: context.colors.onSurface)),
+              ),
+            CupertinoTextField(
+              controller: widget.controller,
+              placeholder: widget.hintText,
+              style: widget.style ?? context.theme.textTheme.bodyMedium?.copyWith(color: context.colors.onSurface),
+              placeholderStyle: widget.style != null ? widget.style!.copyWith(color: context.colors.onSurface.withValues(alpha: 0.5)) : context.theme.textTheme.bodyMedium?.copyWith(color: context.colors.onSurface.withValues(alpha: 0.5)),
+              textInputAction: widget.textInputAction,
+              keyboardType: widget.keyboardType,
+              obscureText: widget.obscureText ?? false,
+              enabled: widget.enabled ?? true,
+              readOnly: widget.readOnly ?? false,
+              autofocus: widget.autofocus ?? false,
+              minLines: widget.minLines,
+              maxLines: widget.maxLines,
+              maxLength: widget.maxLength,
+              onChanged: (value) {
+                field.didChange(value);
+                widget.onChanged?.call(value);
+              },
+              onEditingComplete: widget.onEditingComplete,
+              onTap: widget.onTap,
+              onSubmitted: widget.onSubmitted,
+              inputFormatters: widget.inputFormatter != null ? [widget.inputFormatter!] : null,
+              textAlign: TextAlign.start,
+              textAlignVertical: TextAlignVertical.center,
+              cursorColor: context.colors.primary,
+              prefix: widget.prefix,
+              suffix: widget.suffix,
+              padding: EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.medium().vertical),
+              decoration: BoxDecoration(
+                color: context.colors.surfaceContainerLow,
+                borderRadius: SDRadius.medium(),
+                border: Border.all(color: field.hasError ? context.colors.error : Colors.transparent),
+              ),
+            ),
+            if (field.hasError)
+              Padding(
+                padding: EdgeInsets.only(top: SDPadding.small().vertical),
+                child: SDText(field.errorText!, style: context.theme.textTheme.bodySmall?.copyWith(color: context.colors.error), textAlign: TextAlign.start),
+              ),
+          ],
+        );
+      },
     );
   }
 }
