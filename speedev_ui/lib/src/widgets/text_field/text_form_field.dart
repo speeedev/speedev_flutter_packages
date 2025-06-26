@@ -104,7 +104,7 @@ class _SDTextInputState extends State<SDTextInput> {
   }
 
   Widget _buildCupertinoTextField() {
-    return CupertinoTextField(
+    return CupertinoTextFormFieldRow(
       controller: widget.controller,
       placeholder: widget.hintText,
       style: widget.style ?? context.theme.textTheme.bodyMedium?.copyWith(color: context.colors.onSurface),
@@ -121,13 +121,12 @@ class _SDTextInputState extends State<SDTextInput> {
       onChanged: widget.onChanged,
       onEditingComplete: widget.onEditingComplete,
       onTap: widget.onTap,
-      onSubmitted: widget.onSubmitted,
+      onFieldSubmitted: widget.onSubmitted,
       inputFormatters: widget.inputFormatter != null ? [widget.inputFormatter!] : null,
       textAlign: TextAlign.start,
       textAlignVertical: TextAlignVertical.center,
       cursorColor: context.colors.primary,
       prefix: widget.prefix,
-      suffix: widget.suffix,
       padding: EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.medium().vertical),
       decoration: BoxDecoration(
         color: context.colors.surfaceContainerLow,
