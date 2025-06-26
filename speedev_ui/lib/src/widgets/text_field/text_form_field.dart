@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speedev_ui/speedev_ui.dart';
 import 'package:speedev_ui/src/extensions/context_extension.dart';
 import 'package:speedev_ui/src/theme/values/sd_padding.dart';
 import 'package:speedev_ui/src/theme/values/sd_radius.dart';
@@ -104,35 +105,45 @@ class _SDTextInputState extends State<SDTextInput> {
   }
 
   Widget _buildCupertinoTextField() {
-    return CupertinoTextFormFieldRow(
-      controller: widget.controller,
-      placeholder: widget.hintText,
-      style: widget.style ?? context.theme.textTheme.bodyMedium?.copyWith(color: context.colors.onSurface),
-      placeholderStyle: widget.style != null ? widget.style!.copyWith(color: context.colors.onSurface.withValues(alpha: 0.5)) : context.theme.textTheme.bodyMedium?.copyWith(color: context.colors.onSurface.withValues(alpha: 0.5)),
-      textInputAction: widget.textInputAction,
-      keyboardType: widget.keyboardType,
-      obscureText: widget.obscureText ?? false,
-      enabled: widget.enabled ?? true,
-      readOnly: widget.readOnly ?? false,
-      autofocus: widget.autofocus ?? false,
-      minLines: widget.minLines,
-      maxLines: widget.maxLines,
-      maxLength: widget.maxLength,
-      onChanged: widget.onChanged,
-      onEditingComplete: widget.onEditingComplete,
-      onTap: widget.onTap,
-      onFieldSubmitted: widget.onSubmitted,
-      inputFormatters: widget.inputFormatter != null ? [widget.inputFormatter!] : null,
-      textAlign: TextAlign.start,
-      textAlignVertical: TextAlignVertical.center,
-      cursorColor: context.colors.primary,
-      prefix: widget.prefix,
-      padding: EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.medium().vertical),
-      decoration: BoxDecoration(
-        color: context.colors.surfaceContainerLow,
-        borderRadius: SDRadius.medium(),
-        border: Border.all(color: Colors.transparent),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CupertinoTextField(
+          controller: widget.controller,
+          placeholder: widget.hintText,
+          style: widget.style ?? context.theme.textTheme.bodyMedium?.copyWith(color: context.colors.onSurface),
+          placeholderStyle: widget.style != null ? widget.style!.copyWith(color: context.colors.onSurface.withValues(alpha: 0.5)) : context.theme.textTheme.bodyMedium?.copyWith(color: context.colors.onSurface.withValues(alpha: 0.5)),
+          textInputAction: widget.textInputAction,
+          keyboardType: widget.keyboardType,
+          obscureText: widget.obscureText ?? false,
+          enabled: widget.enabled ?? true,
+          readOnly: widget.readOnly ?? false,
+          autofocus: widget.autofocus ?? false,
+          minLines: widget.minLines,
+          maxLines: widget.maxLines,
+          maxLength: widget.maxLength,
+          onChanged: widget.onChanged,
+          onEditingComplete: widget.onEditingComplete,
+          onTap: widget.onTap,
+          onSubmitted: widget.onSubmitted,
+          inputFormatters: widget.inputFormatter != null ? [widget.inputFormatter!] : null,
+          textAlign: TextAlign.start,
+          textAlignVertical: TextAlignVertical.center,
+          cursorColor: context.colors.primary,
+          prefix: widget.prefix,
+          padding: EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.medium().vertical),
+          decoration: BoxDecoration(
+            color: context.colors.surfaceContainerLow,
+            borderRadius: SDRadius.medium(),
+            border: Border.all(color: Colors.transparent),
+          ),
+        ),
+        if (widget.validator != null)
+          Padding(
+            padding: EdgeInsets.only(top: SDPadding.small().vertical),
+            child: SDText(widget.validator!(widget.controller?.text) ?? '', style: context.theme.textTheme.bodySmall?.copyWith(color: context.colors.error), textAlign: TextAlign.start),
+          ),
+      ],
     );
   }
 }
