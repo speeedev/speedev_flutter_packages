@@ -60,16 +60,6 @@ class SDTextInput extends StatefulWidget {
 }
 
 class _SDTextInputState extends State<SDTextInput> {
-  String? _errorText;
-
-  void _validateText(String value) {
-    if (widget.validator != null) {
-      setState(() {
-        _errorText = widget.validator!(value);
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Platform.isAndroid ? _buildMaterialTextField() : _buildCupertinoTextField();
