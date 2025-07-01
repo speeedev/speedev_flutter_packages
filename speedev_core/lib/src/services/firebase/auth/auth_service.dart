@@ -2,13 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:speedev_core/src/models/result_model.dart';
 
 abstract class SDFirebaseAuthServiceAbstract {
-  Future<SDResult<User>> signUpWithEmailAndPassword(String email, String password);
+  Future<SDResult<User>> signUpWithEmailAndPassword({required String email, required String password});
 
-  Future<SDResult<User>> signInWithEmailAndPassword(String email, String password);
+  Future<SDResult<User>> signInWithEmailAndPassword({required String email, required String password});
 
   Future<SDResult<bool>> signOut();
 
-  Future<SDResult<bool>> sendPasswordResetEmail(String email);
+  Future<SDResult<bool>> sendPasswordResetEmail({required String email});
 
   Future<SDResult<bool>> sendEmailVerification();
 
@@ -27,7 +27,7 @@ abstract class SDFirebaseAuthServiceAbstract {
 
 class SDFirebaseAuthService implements SDFirebaseAuthServiceAbstract {
   @override
-  Future<SDResult<User>> signUpWithEmailAndPassword(String email, String password) async {
+  Future<SDResult<User>> signUpWithEmailAndPassword({required String email, required String password}) async {
     try {
       final result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
       return SDResult(data: result.user, isSuccess: true);
@@ -39,7 +39,7 @@ class SDFirebaseAuthService implements SDFirebaseAuthServiceAbstract {
   }
 
   @override
-  Future<SDResult<User>> signInWithEmailAndPassword(String email, String password) async {
+  Future<SDResult<User>> signInWithEmailAndPassword({required String email, required String password}) async {
     try {
       final result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
       return SDResult(data: result.user, isSuccess: true);
@@ -63,7 +63,7 @@ class SDFirebaseAuthService implements SDFirebaseAuthServiceAbstract {
   }
 
   @override
-  Future<SDResult<bool>> sendPasswordResetEmail(String email) async {
+  Future<SDResult<bool>> sendPasswordResetEmail({required String email}) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       return SDResult(data: true, isSuccess: true);
