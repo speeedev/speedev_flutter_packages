@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:speedev_core/src/models/result_model.dart';
 
-abstract class SDFirebaseAuthService {
+abstract class SDFirebaseAuthServiceAbstract {
   Future<SDResult<User>> signUpWithEmailAndPassword(String email, String password);
 
   Future<SDResult<User>> signInWithEmailAndPassword(String email, String password);
@@ -25,7 +25,7 @@ abstract class SDFirebaseAuthService {
   Future<SDResult<bool>> isUserSignedIn();
 }
 
-class SDFirebaseAuthServiceImpl implements SDFirebaseAuthService {
+class SDFirebaseAuthService implements SDFirebaseAuthServiceAbstract {
   @override
   Future<SDResult<User>> signUpWithEmailAndPassword(String email, String password) async {
     try {

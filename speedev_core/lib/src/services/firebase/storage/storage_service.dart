@@ -4,7 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:speedev_core/src/models/result_model.dart';
 
-abstract class SDFirebaseStorageService {
+abstract class SDFirebaseStorageServiceAbstract {
   Future<SDResult<String>> uploadFile({required String path, required String fileName, required File file});
 
   Future<SDResult<File>> downloadFile({required String path, String? fileName});
@@ -14,7 +14,7 @@ abstract class SDFirebaseStorageService {
   Future<SDResult<String>> getDownloadUrl({required String path});
 }
 
-class SDFirebaseStorageServiceImpl implements SDFirebaseStorageService {
+class SDFirebaseStorageService implements SDFirebaseStorageServiceAbstract {
   @override
   Future<SDResult<String>> uploadFile({required String path, required String fileName, required File file}) async {
     try {

@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:speedev_core/src/services/network/dio/dio_config.dart';
 
-abstract class SDNetworkService {
-  SDNetworkService() : dioConfig = SDDioConfig();
+abstract class SDNetworkServiceAbstract {
+  SDNetworkServiceAbstract() : dioConfig = SDDioConfig();
   final SDDioConfig dioConfig;
 
   Future<T?> get<T>({
@@ -30,8 +30,8 @@ abstract class SDNetworkService {
   });
 }
 
-class SDNetworkServiceImpl implements SDNetworkService {
-  SDNetworkServiceImpl({
+class SDNetworkService implements SDNetworkServiceAbstract {
+  SDNetworkService({
     required this.dioConfig,
   });
 
