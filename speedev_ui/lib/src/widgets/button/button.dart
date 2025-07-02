@@ -125,11 +125,14 @@ class _SDButtonState extends State<SDButton> {
   }
 
   Widget _buildIconButton() {
-    return IconButton(
-      onPressed: widget.onPressed,
-      icon: widget.child,
-      color: context.colors.primary,
-      disabledColor: context.colors.primary.withValues(alpha: 0.5),
+    return Align(
+      alignment: Alignment.center,
+      child: PlatformIconButton(
+        onPressed: widget.onPressed,
+        icon: widget.child,
+        color: context.colors.primary,
+        disabledColor: context.colors.primary.withValues(alpha: 0.5),
+      ),
     );
   }
 }
