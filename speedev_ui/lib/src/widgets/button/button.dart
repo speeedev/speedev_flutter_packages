@@ -34,6 +34,16 @@ class SDButton extends StatefulWidget {
         suffix = null,
         padding = null;
 
+  const SDButton.text({
+    super.key,
+    required this.child,
+    this.onPressed,
+    this.state = SDButtonState.enabled,
+  })  : _type = SDButtonType.text,
+        prefix = null,
+        suffix = null,
+        padding = null;
+        
   @override
   State<SDButton> createState() => _SDButtonState();
 }
