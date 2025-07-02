@@ -217,9 +217,6 @@ class _SDDropDownState<T> extends State<SDDropDown<T>> {
                       : null,
                   onTap: () {
                     Navigator.pop(context);
-                    setState(() {
-                      selectedItem = item;
-                    });
                     widget.onSelected(item);
                   },
                 );
@@ -249,9 +246,6 @@ class _SDDropDownState<T> extends State<SDDropDown<T>> {
         return CupertinoActionSheetAction(
           onPressed: () {
             Navigator.pop(context);
-            setState(() {
-              selectedItem = item;
-            });
             widget.onSelected(item);
           },
           child: Row(
