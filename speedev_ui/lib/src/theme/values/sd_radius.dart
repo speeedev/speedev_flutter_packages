@@ -5,6 +5,8 @@ enum SDRadiusValues {
   small(radiusValue: 5),
   medium(radiusValue: 10),
   large(radiusValue: 16),
+  xLarge(radiusValue: 24),
+  xxLarge(radiusValue: 32),
   rounded(radiusValue: 50);
 
   final double radiusValue;
@@ -35,5 +37,15 @@ class SDRadius extends BorderRadius {
   SDRadius.rounded()
       : super.all(
           Radius.circular(SDRadiusValues.rounded.radiusValue),
+        );
+
+  SDRadius.xLarge()
+      : super.all(
+          Radius.circular(SDRadiusValues.xLarge.radiusValue),
+        );
+
+  SDRadius.xxLarge()
+      : super.all(
+          Radius.circular(SDRadiusValues.xxLarge.radiusValue),
         );
 }

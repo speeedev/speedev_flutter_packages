@@ -43,7 +43,7 @@ class SDButton extends StatefulWidget {
         prefix = null,
         suffix = null,
         padding = null;
-        
+
   @override
   State<SDButton> createState() => _SDButtonState();
 }
@@ -140,6 +140,20 @@ class _SDButtonState extends State<SDButton> {
     return Align(
       alignment: Alignment.center,
       child: PlatformIconButton(
+        material: (_, __) => MaterialIconButtonData(
+          color: context.colors.primary,
+          style: ButtonStyle(
+            shape: WidgetStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: SDRadius.xxLarge(),
+              ),
+            ),
+          ),
+        ),
+        cupertino: (_, __) => CupertinoIconButtonData(
+          color: context.colors.primary,
+          borderRadius: SDRadius.xxLarge(),
+        ),
         onPressed: widget.onPressed,
         icon: widget.child,
         color: context.colors.primary,
