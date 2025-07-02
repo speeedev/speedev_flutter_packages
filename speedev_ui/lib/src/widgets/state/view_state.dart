@@ -4,7 +4,11 @@ import 'package:speedev_ui/src/widgets/state/loading/loading_indicator.dart';
 
 class SDStateView extends StatefulWidget {
   final SDViewState viewState;
-  const SDStateView({super.key, required this.viewState});
+  final Widget? loadingWidget;
+  final Widget? successWidget;
+  final Widget? errorWidget;
+  final Widget? initialWidget;
+  const SDStateView({super.key, required this.viewState, this.loadingWidget, this.successWidget, this.errorWidget, this.initialWidget});
 
   @override
   State<SDStateView> createState() => _SDStateViewState();
@@ -14,10 +18,10 @@ class _SDStateViewState extends State<SDStateView> {
   @override
   Widget build(BuildContext context) {
     return switch (widget.viewState) {
-      SDViewState.initial => const SizedBox.shrink(),
-      SDViewState.loading => const SDLoadingIndicator(),
-      SDViewState.success => const SizedBox.shrink(),
-      SDViewState.error => const SizedBox.shrink(),
+      SDViewState.initial => widget.initialWidget ?? const SizedBox.shrink(),
+      SDViewState.loading => widget.loadingWidget ?? const SDLoadingIndicator(),
+      SDViewState.success => widget.successWidget ?? const SizedBox.shrink(),
+      SDViewState.error => widget.errorWidget ?? const SizedBox.shrink(),
     };
   }
 }
