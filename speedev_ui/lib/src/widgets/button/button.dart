@@ -27,12 +27,12 @@ class SDButton extends StatefulWidget {
   const SDButton.icon({
     super.key,
     this.onPressed,
+    required this.child,
     this.state = SDButtonState.enabled,
-  }) : _type = SDButtonType.icon,
-       child = const Icon(Icons.add),
-       prefix = null,
-       suffix = null,
-       padding = null;
+  })  : _type = SDButtonType.icon,
+        prefix = null,
+        suffix = null,
+        padding = null;
 
   @override
   State<SDButton> createState() => _SDButtonState();
