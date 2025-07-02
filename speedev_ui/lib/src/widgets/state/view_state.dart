@@ -19,7 +19,7 @@ class _SDStateViewState extends State<SDStateView> {
   Widget build(BuildContext context) {
     return switch (widget.viewState) {
       SDViewState.initial => widget.initialWidget ?? const SizedBox.shrink(),
-      SDViewState.loading => widget.loadingWidget ?? const SDLoadingIndicator(),
+      SDViewState.loading => Center(child: widget.loadingWidget ?? const SDLoadingIndicator()),
       SDViewState.success => widget.successWidget ?? const SizedBox.shrink(),
       SDViewState.error => widget.errorWidget ?? const SizedBox.shrink(),
     };
