@@ -46,6 +46,8 @@ class _SDButtonState extends State<SDButton> {
         return _buildPrimaryButton();
       case SDButtonType.icon:
         return _buildIconButton();
+      case SDButtonType.text:
+        return _buildTextButton();
       default:
         return Container();
     }
@@ -133,6 +135,13 @@ class _SDButtonState extends State<SDButton> {
         color: context.colors.primary,
         disabledColor: context.colors.primary.withValues(alpha: 0.5),
       ),
+    );
+  }
+
+  Widget _buildTextButton() {
+    return PlatformTextButton(
+      onPressed: widget.onPressed,
+      child: widget.child,
     );
   }
 }
