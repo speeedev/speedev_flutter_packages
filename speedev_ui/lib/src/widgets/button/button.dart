@@ -141,7 +141,6 @@ class _SDButtonState extends State<SDButton> {
       alignment: Alignment.center,
       child: PlatformIconButton(
         material: (_, __) => MaterialIconButtonData(
-          color: context.colors.primary,
           style: ButtonStyle(
             shape: WidgetStateProperty.all(
               RoundedRectangleBorder(
@@ -151,7 +150,6 @@ class _SDButtonState extends State<SDButton> {
           ),
         ),
         cupertino: (_, __) => CupertinoIconButtonData(
-          color: context.colors.primary,
           borderRadius: SDRadius.xxLarge(),
         ),
         onPressed: widget.onPressed,
