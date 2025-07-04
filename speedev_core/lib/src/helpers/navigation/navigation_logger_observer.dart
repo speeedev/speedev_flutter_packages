@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:speedev_core/speedev_core.dart';
 
-class SDNavLoggerHelper extends AutoRouterObserver {
+class SDNavLoggerObserver extends AutoRouterObserver {
   @override
   void didPush(Route route, Route? previousRoute) {
     SDLoggerHelper().info('New route pushed: ${route.settings.name}');
