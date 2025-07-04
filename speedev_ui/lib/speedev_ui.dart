@@ -46,3 +46,7 @@ export 'src/widgets/list_section/list_section_item.dart';
 
 // Initialization
 export 'src/init/easy_loading.dart';
+
+// Helpers
+export 'src/helpers/ui_feedback_helper.dart';
+export 'src/helpers/extensions/dynamic_extension.dart';
