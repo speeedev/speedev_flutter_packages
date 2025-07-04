@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:speedev_ui/src/extensions/context_extension.dart';
+import 'package:speedev_ui/src/helpers/extensions/context_extension.dart';
 import 'package:speedev_ui/src/theme/values/sd_radius.dart';
 import 'package:speedev_ui/src/widgets/list_section/list_section_item.dart';
 

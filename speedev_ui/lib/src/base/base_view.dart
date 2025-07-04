@@ -24,10 +24,7 @@ class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
   void initState() {
     super.initState();
     viewModel = widget.viewModel;
-    viewModel.showLoadingDialog();
-    viewModel.init(context);
     widget.onInit?.call(context, viewModel);
-    WidgetsBinding.instance.addPostFrameCallback((_) => viewModel.hideLoadingDialog());
   }
 
   @override

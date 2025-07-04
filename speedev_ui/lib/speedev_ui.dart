@@ -3,9 +3,9 @@ library;
 import 'package:flutter/material.dart';
 
 // Extensions
-export 'src/extensions/context_extension.dart';
-export 'src/extensions/int_extension.dart';
-export 'src/extensions/widget_extension.dart';
+export 'src/helpers/extensions/context_extension.dart';
+export 'src/helpers/extensions/int_extension.dart';
+export 'src/helpers/extensions/widget_extension.dart';
 
 // Base classes
 export 'src/base/base_view.dart';

@@ -4,7 +4,7 @@ import 'package:speedev_core/src/helpers/speedev_core_functions.dart';
 
 abstract class SDFirebaseCrashlyticsServiceAbstract {
   Future<void> log({required String message});
-  Future<void> recordCrash({String? message, required dynamic error, required StackTrace stackTrace});
+  Future<void> recordError({String? message, required dynamic error, required StackTrace stackTrace});
   Future<void> setUserIdentifier({required String identifier});
   Future<void> clearUserIdentifier();
 }
@@ -22,13 +22,13 @@ class SDFirebaseCrashlyticsService implements SDFirebaseCrashlyticsServiceAbstra
         await FirebaseCrashlytics.instance.log(message);
       },
       onError: (error, stackTrace) {
-        SDLoggerHelper().error(error);
+        SDLoggerHelper().error("Crashlytics log error: $error");
       },
     );
   }
 
   @override
-  Future<void> recordCrash({
+  Future<void> recordError({
     String? message,
     required dynamic error,
     required StackTrace stackTrace,
@@ -42,7 +42,7 @@ class SDFirebaseCrashlyticsService implements SDFirebaseCrashlyticsServiceAbstra
         );
       },
       onError: (error, stackTrace) {
-        SDLoggerHelper().error(error);
+        SDLoggerHelper().error("Crashlytics record error: $error");
       },
     );
   }
@@ -53,6 +53,9 @@ class SDFirebaseCrashlyticsService implements SDFirebaseCrashlyticsServiceAbstra
       operation: () async {
         await FirebaseCrashlytics.instance.setUserIdentifier(identifier);
       },
+      onError: (error, stackTrace) {
+        SDLoggerHelper().error("Crashlytics set user identifier error: $error");
+      },
     );
   }
 
@@ -61,6 +64,9 @@ class SDFirebaseCrashlyticsService implements SDFirebaseCrashlyticsServiceAbstra
     await safeExecute<void>(
       operation: () async {
         await FirebaseCrashlytics.instance.setUserIdentifier("");
+      },
+      onError: (error, stackTrace) {
+        SDLoggerHelper().error("Crashlytics clear user identifier error: $error");
       },
     );
   }
