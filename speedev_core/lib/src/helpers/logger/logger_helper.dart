@@ -1,5 +1,4 @@
-import 'package:logger/web.dart';
-
+import 'package:talker/talker.dart';
 class SDLoggerHelper {
   SDLoggerHelper._();
 
@@ -7,25 +6,26 @@ class SDLoggerHelper {
 
   factory SDLoggerHelper() => _instance;
 
-  late final Logger _logger;
+  late final Talker _talker;
+  Talker get talker => _talker;
 
   Future<void> init() async {
-    _logger = Logger();
+    _talker = Talker();
   }
 
   void info(String message) {
-    _logger.i(message);
+    _talker.info(message);
   }
 
   void error(String message) {
-    _logger.e(message);
+    _talker.error(message);
   }
 
   void warning(String message) {
-    _logger.w(message);
+    _talker.warning(message);
   }
 
   void debug(String message) {
-    _logger.d(message);
+    _talker.debug(message);
   }
 }

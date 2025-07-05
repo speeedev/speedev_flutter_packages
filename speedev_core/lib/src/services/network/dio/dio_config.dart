@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:speedev_core/speedev_core.dart';
 import 'package:speedev_core/src/services/network/dio/interceptors/auth_interceptor.dart';
-import 'package:speedev_core/src/services/network/dio/interceptors/log_interceptor.dart';
+import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
+import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 
 class SDDioConfig {
   static final SDDioConfig _instance = SDDioConfig._();
@@ -41,7 +43,16 @@ class SDDioConfig {
     );
 
     if (enableLogging) {
-      _dio.interceptors.add(SDLogInterceptor());
+      _dio.interceptors.add(
+        TalkerDioLogger(
+          talker: SDLoggerHelper().talker,
+          settings: const TalkerDioLoggerSettings(
+            printRequestHeaders: true,
+            printResponseHeaders: true,
+            printResponseMessage: true,
+          ),
+        ),
+      );
     }
 
     if (enableTokenAuth) {

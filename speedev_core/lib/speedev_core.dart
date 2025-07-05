@@ -10,7 +10,6 @@ export 'src/services/network/network_service.dart';
 export 'src/services/network/dio/dio_config.dart';
 export 'src/services/network/dio/exception/dio_exception.dart';
 export 'src/services/network/dio/interceptors/auth_interceptor.dart';
-export 'src/services/network/dio/interceptors/log_interceptor.dart';
 export 'src/helpers/navigation/navigation_helper.dart';
 export 'src/helpers/validator/validator_helper.dart';
 export 'src/helpers/speedev_core_functions.dart';
