@@ -1,3 +1,5 @@
+import 'package:speedev_core/speedev_core.dart';
+
 Future<void> safeExecute<T>({
   required Future<T> Function() operation,
   Function(dynamic error, StackTrace stackTrace)? onError,
@@ -9,6 +11,7 @@ Future<void> safeExecute<T>({
     onSuccess?.call(response);
   } catch (error, stackTrace) {
     onError?.call(error, stackTrace);
+    SDLoggerHelper().error("Safe execute error: $error\n\n$stackTrace");
   } finally {
     onFinally?.call();
   }
