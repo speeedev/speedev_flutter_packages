@@ -11,7 +11,10 @@ abstract class SDFirebaseFirestoreServiceAbstract {
 
   Future<Map<String, dynamic>> getDocument({required String collectionName, required String documentId});
 
-  Future<List<Map<String, dynamic>>> getDocuments({required String collectionName});
+  Future<List<Map<String, dynamic>>> getDocuments({
+    required String collectionName,
+    Query<Map<String, dynamic>>? Function(CollectionReference<Map<String, dynamic>> collection)? queryBuilder,
+  });
 }
 
 class SDFirebaseFirestoreService implements SDFirebaseFirestoreServiceAbstract {
@@ -43,7 +46,12 @@ class SDFirebaseFirestoreService implements SDFirebaseFirestoreServiceAbstract {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getDocuments({required String collectionName}) async {
-    return await firestore.collection(collectionName).get().then((value) => value.docs.map((e) => e.data()).toList());
+  Future<List<Map<String, dynamic>>> getDocuments({
+    required String collectionName,
+    Query<Map<String, dynamic>>? Function(CollectionReference<Map<String, dynamic>> collection)? queryBuilder,
+  }) async {
+    final collection = firestore.collection(collectionName);
+    final query = queryBuilder?.call(collection) ?? collection;
+    return await query.get().then((value) => value.docs.map((e) => e.data()).toList());
   }
 }
