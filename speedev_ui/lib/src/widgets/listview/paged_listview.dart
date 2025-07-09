@@ -18,6 +18,7 @@ class SDPagedListView<T> extends StatefulWidget {
   final GlobalKey<RefreshIndicatorState>? refreshIndicatorKey;
   final bool isSliver;
   final Axis scrollDirection;
+  final bool reverse;
 
   const SDPagedListView({
     super.key,
@@ -32,6 +33,7 @@ class SDPagedListView<T> extends StatefulWidget {
     this.refreshIndicatorKey,
     this.isSliver = false,
     this.scrollDirection = Axis.vertical,
+    this.reverse = false,
   }) : assert((pagingController != null && future == null) || (pagingController == null && future != null), 'Either pagingController or future must be non-null, but not both and not neither.');
 
   @override
@@ -71,6 +73,7 @@ class _SDPagedListViewState<T> extends State<SDPagedListView<T>> with AutomaticK
       scrollController: widget.scrollController ?? ScrollController(),
       physics: widget.isScrollable ? null : const NeverScrollableScrollPhysics(),
       shrinkWrap: !widget.isScrollable,
+      reverse: widget.reverse,
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<T>(
         noItemsFoundIndicatorBuilder: (context) {
