@@ -23,11 +23,9 @@ class SDScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlatformScaffold(
       appBar: appBar,
-      body: SafeArea(
-        child: Padding(
-          padding: bodyPadding ?? SDPadding.medium(),
-          child: body,
-        ),
+      body: Padding(
+        padding: bodyPadding ?? SDPadding.medium(),
+        child: body,
       ),
       bottomNavBar: bottomNavBar,
       backgroundColor: backgroundColor,
