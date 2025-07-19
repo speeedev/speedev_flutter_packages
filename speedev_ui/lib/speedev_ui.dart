@@ -30,6 +30,7 @@ export 'src/widgets/modal_bottom_sheet/modal_bottom_sheet.dart';
 export 'src/widgets/popup_menu/popup_menu.dart';
 export 'src/widgets/popup_menu/popup_menu_option.dart';
 export 'src/widgets/scaffold/scaffold.dart';
+export 'src/widgets/bottom_nav_bar/bottom_nav_bar.dart';
 export 'src/widgets/slider/slider.dart';
 export 'src/widgets/state/error/error_view.dart';
 export 'src/widgets/state/loading/loading_indicator.dart';
