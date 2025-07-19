@@ -8,10 +8,11 @@ class SDAppBar extends PlatformAppBar {
   final Color? backgroundColor;
   @override
   final Widget? leading;
+  @override
   final List<Widget>? actions;
   @override
   final bool? automaticallyImplyLeading;
-
+    
   SDAppBar({
     super.key,
     this.title,
