@@ -40,7 +40,7 @@ class SDListTile extends StatelessWidget {
       material: (_, __) => MaterialListTileData(
         titleAlignment: ListTileTitleAlignment.center,
         textColor: context.theme.colorScheme.onSurface,
-        tileColor: backgroundColor ?? context.colors.surfaceContainer,
+        tileColor: backgroundColor ?? context.colors.surfaceContainerHighest,
       ),
       cupertino: (_, __) => CupertinoListTileData(
         title: title,
@@ -49,7 +49,7 @@ class SDListTile extends StatelessWidget {
         trailing: trailing,
         additionalInfo: additionalInfo,
         onTap: onTap,
-        backgroundColor: backgroundColor ?? context.colors.surfaceContainer,
+        backgroundColor: backgroundColor ?? context.colors.surfaceContainerHighest,
       ),
       title: title,
       subtitle: subtitle,
