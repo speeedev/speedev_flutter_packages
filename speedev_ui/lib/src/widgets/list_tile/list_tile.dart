@@ -58,7 +58,6 @@ class SDListTile extends StatelessWidget {
   }
 }
 
-// Cupertino chevron için yardımcı widget
 class SDListTileChevron extends StatelessWidget {
   const SDListTileChevron({super.key});
 
