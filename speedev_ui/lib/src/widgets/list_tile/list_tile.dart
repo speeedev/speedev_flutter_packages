@@ -10,7 +10,6 @@ class SDListTile extends StatelessWidget {
   final Widget? trailing;
   final Widget? additionalInfo;
   final Function()? onTap;
-  final bool notched;
   
   const SDListTile({
     super.key, 
@@ -20,10 +19,8 @@ class SDListTile extends StatelessWidget {
     this.trailing, 
     this.additionalInfo,
     this.onTap,
-    this.notched = false,
   });
 
-  // Notched constructor ekleyelim
   const SDListTile.notched({
     super.key,
     required this.title,
@@ -32,7 +29,7 @@ class SDListTile extends StatelessWidget {
     this.trailing,
     this.additionalInfo,
     this.onTap,
-  }) : notched = true;
+  });
 
   @override
   Widget build(BuildContext context) {
