@@ -11,17 +11,42 @@ class SDListSection extends StatelessWidget {
   final Widget? footer;
   final EdgeInsets margin;
   final Color? backgroundColor;
-  const SDListSection({super.key, required this.children, this.header, this.footer, this.margin = EdgeInsets.zero, this.backgroundColor});
+  final Color? itemBackgroundColor;
+  
+  const SDListSection({
+    super.key, 
+    required this.children, 
+    this.header, 
+    this.footer, 
+    this.margin = EdgeInsets.zero, 
+    this.backgroundColor,
+    this.itemBackgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final updatedChildren = children.map((child) {
+      if (itemBackgroundColor != null && child.backgroundColor == null) {
+        return SDListSectionItem(
+          title: child.title,
+          subtitle: child.subtitle,
+          trailing: child.trailing,
+          prefix: child.prefix,
+          padding: child.padding,
+          onTap: child.onTap,
+          backgroundColor: itemBackgroundColor,
+        );
+      }
+      return child;
+    }).toList();
+
     return PlatformWidget(
-      cupertino: (_, __) => _buildCupertinoListSection(context),
-      material: (_, __) => _buildMaterialListSection(context),
+      cupertino: (_, __) => _buildCupertinoListSection(context, updatedChildren),
+      material: (_, __) => _buildMaterialListSection(context, updatedChildren),
     );
   }
 
-  Widget _buildCupertinoListSection(BuildContext context) {
+  Widget _buildCupertinoListSection(BuildContext context, List<SDListSectionItem> children) {
     return CupertinoListSection.insetGrouped(
       header: header,
       footer: footer,
@@ -31,7 +56,7 @@ class SDListSection extends StatelessWidget {
     );
   }
 
-  Widget _buildMaterialListSection(BuildContext context) {
+  Widget _buildMaterialListSection(BuildContext context, List<SDListSectionItem> children) {
     return Container(
       margin: margin,
       decoration: BoxDecoration(

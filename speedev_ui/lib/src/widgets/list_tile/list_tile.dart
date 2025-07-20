@@ -10,15 +10,17 @@ class SDListTile extends StatelessWidget {
   final Widget? trailing;
   final Widget? additionalInfo;
   final Function()? onTap;
-  
+  final Color? backgroundColor;
+
   const SDListTile({
-    super.key, 
-    required this.title, 
-    this.subtitle, 
-    this.leading, 
-    this.trailing, 
+    super.key,
+    required this.title,
+    this.subtitle,
+    this.leading,
+    this.trailing,
     this.additionalInfo,
     this.onTap,
+    this.backgroundColor,
   });
 
   const SDListTile.notched({
@@ -29,14 +31,16 @@ class SDListTile extends StatelessWidget {
     this.trailing,
     this.additionalInfo,
     this.onTap,
+    this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return PlatformListTile(
+    final listTile = PlatformListTile(
       material: (_, __) => MaterialListTileData(
         titleAlignment: ListTileTitleAlignment.center,
         textColor: context.theme.colorScheme.onSurface,
+        tileColor: backgroundColor,
       ),
       cupertino: (_, __) => CupertinoListTileData(
         title: title,
@@ -45,6 +49,7 @@ class SDListTile extends StatelessWidget {
         trailing: trailing,
         additionalInfo: additionalInfo,
         onTap: onTap,
+        backgroundColor: backgroundColor,
       ),
       title: title,
       subtitle: subtitle,
@@ -52,6 +57,15 @@ class SDListTile extends StatelessWidget {
       trailing: trailing,
       onTap: onTap,
     );
+
+    if (backgroundColor != null) {
+      return Container(
+        color: backgroundColor,
+        child: listTile,
+      );
+    }
+
+    return listTile;
   }
 }
 
