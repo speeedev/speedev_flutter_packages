@@ -25,6 +25,7 @@ class SDListSection extends StatelessWidget {
     return CupertinoListSection.insetGrouped(
       header: header,
       footer: footer,
+      margin: EdgeInsets.zero,
       backgroundColor: backgroundColor ?? context.colors.surfaceContainer,
       children: children,
     );
