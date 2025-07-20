@@ -12,6 +12,7 @@ class SDAppBar extends PlatformAppBar {
   final List<Widget>? actions;
   @override
   final bool? automaticallyImplyLeading;
+  final bool iosLargeTitle;
     
   SDAppBar({
     super.key,
@@ -20,6 +21,7 @@ class SDAppBar extends PlatformAppBar {
     this.leading,
     this.actions,
     this.automaticallyImplyLeading = true,
+    this.iosLargeTitle = false,
   }) : super(
           title: title,
           backgroundColor: backgroundColor,
