@@ -13,6 +13,6 @@ class SDListSectionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SDListTile(title: title ?? const SizedBox.shrink(), subtitle: subtitle, trailing: trailing, leading: prefix, onTap: onTap);
+    return SDListTile.notched(title: title ?? const SizedBox.shrink(), subtitle: subtitle, trailing: trailing, leading: prefix, onTap: onTap);
   }
 }

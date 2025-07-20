@@ -22,7 +22,7 @@ class SDListSection extends StatelessWidget {
   }
 
   Widget _buildCupertinoListSection(BuildContext context) {
-    return CupertinoListSection(
+    return CupertinoListSection.insetGrouped(
       header: header,
       footer: footer,
       backgroundColor: backgroundColor ?? context.colors.surfaceContainer,
