@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:speedev_ui/src/helpers/extensions/context_extension.dart';
 import 'package:speedev_ui/src/theme/values/sd_padding.dart';
 import 'package:speedev_ui/src/widgets/appbar/appbar.dart';
 import 'package:speedev_ui/src/widgets/bottom_nav_bar/bottom_nav_bar.dart';
@@ -25,7 +26,7 @@ class SDScaffold extends StatelessWidget {
     // Check if we need to use iOS large title
     if (appBar?.iosLargeTitle == true && Theme.of(context).platform == TargetPlatform.iOS) {
       return CupertinoPageScaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: backgroundColor ?? context.colors.surface,
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
@@ -59,7 +60,7 @@ class SDScaffold extends StatelessWidget {
       child: body,
       ),
       bottomNavBar: bottomNavBar,
-      backgroundColor: backgroundColor,
+      backgroundColor: backgroundColor ?? context.colors.surface,
     );
   }
 }
