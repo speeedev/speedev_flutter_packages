@@ -59,21 +59,20 @@ class SDListSection extends StatelessWidget {
   Widget _buildMaterialListSection(BuildContext context, List<SDListSectionItem> children) {
     return Container(
       margin: margin,
-      decoration: BoxDecoration(
+      child: ClipRRect(
         borderRadius: SDRadius.large(),
-        color: backgroundColor ?? context.colors.surfaceContainer,
-      ),
-      child: Column(
-        children: [
-          if (header != null) header!,
-          ListView.separated(
-            shrinkWrap: true,
-            itemBuilder: (context, index) => children[index],
-            separatorBuilder: (context, index) => const Divider(),
-            itemCount: children.length,
-          ),
-          if (footer != null) footer!,
-        ],
+        child: Column(
+          children: [
+            if (header != null) header!,
+            ListView.separated(
+              shrinkWrap: true,
+              itemBuilder: (context, index) => children[index],
+              separatorBuilder: (context, index) => const Divider(),
+              itemCount: children.length,
+            ),
+            if (footer != null) footer!,
+          ],
+        ),
       ),
     );
   }

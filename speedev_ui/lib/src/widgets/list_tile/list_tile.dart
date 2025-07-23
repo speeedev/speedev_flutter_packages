@@ -23,17 +23,6 @@ class SDListTile extends StatelessWidget {
     this.backgroundColor,
   });
 
-  const SDListTile.notched({
-    super.key,
-    required this.title,
-    this.subtitle,
-    this.leading,
-    this.trailing,
-    this.additionalInfo,
-    this.onTap,
-    this.backgroundColor,
-  });
-
   @override
   Widget build(BuildContext context) {
     final listTile = PlatformListTile(
@@ -57,7 +46,7 @@ class SDListTile extends StatelessWidget {
       trailing: trailing,
       onTap: onTap,
     );
-    
+
     return listTile;
   }
 }
