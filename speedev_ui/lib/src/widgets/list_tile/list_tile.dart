@@ -39,7 +39,7 @@ class SDListTile extends StatelessWidget {
     final listTile = PlatformListTile(
       material: (_, __) => MaterialListTileData(
         titleAlignment: ListTileTitleAlignment.center,
-        textColor: context.theme.colorScheme.onSurface,
+        textColor: context.colors.onSurface,
         tileColor: backgroundColor ?? context.colors.surfaceContainerHighest,
       ),
       cupertino: (_, __) => CupertinoListTileData(
