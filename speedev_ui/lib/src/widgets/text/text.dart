@@ -20,7 +20,6 @@ class SDText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = style ?? context.textTheme.bodyMedium;
-    return PlatformText(text, style: textStyle, textAlign: textAlign, overflow: overflow, maxLines: maxLines);
+    return PlatformText(text, style: style, textAlign: textAlign, overflow: overflow, maxLines: maxLines);
   }
 }
