@@ -12,13 +12,13 @@ class SDListSection extends StatelessWidget {
   final EdgeInsets margin;
   final Color? backgroundColor;
   final Color? itemBackgroundColor;
-  
+
   const SDListSection({
-    super.key, 
-    required this.children, 
-    this.header, 
-    this.footer, 
-    this.margin = EdgeInsets.zero, 
+    super.key,
+    required this.children,
+    this.header,
+    this.footer,
+    this.margin = EdgeInsets.zero,
     this.backgroundColor,
     this.itemBackgroundColor,
   });
@@ -59,6 +59,7 @@ class SDListSection extends StatelessWidget {
   Widget _buildMaterialListSection(BuildContext context, List<SDListSectionItem> children) {
     return Container(
       margin: margin,
+      color: backgroundColor ?? context.colors.surfaceContainer,
       child: ClipRRect(
         borderRadius: SDRadius.large(),
         child: Column(
