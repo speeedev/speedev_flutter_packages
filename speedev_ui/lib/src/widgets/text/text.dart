@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:speedev_ui/speedev_ui.dart';
 
 class SDText extends StatelessWidget {
   final String text;
@@ -19,6 +20,7 @@ class SDText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformText(text, style: style, textAlign: textAlign, overflow: overflow, maxLines: maxLines);
+    final textStyle = style ?? context.textTheme.bodyMedium;
+    return PlatformText(text, style: textStyle, textAlign: textAlign, overflow: overflow, maxLines: maxLines);
   }
 }
