@@ -57,14 +57,7 @@ class SDListTile extends StatelessWidget {
       trailing: trailing,
       onTap: onTap,
     );
-
-    if (backgroundColor != null) {
-      return Container(
-        color: backgroundColor,
-        child: listTile,
-      );
-    }
-
+    
     return listTile;
   }
 }
