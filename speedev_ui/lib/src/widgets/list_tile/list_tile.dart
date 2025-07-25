@@ -52,6 +52,7 @@ class SDListTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: SDRadius.large(),
+          border: Border(bottom: BorderSide(color: context.colors.outline)),
         ),
         child: listTile,
       );
