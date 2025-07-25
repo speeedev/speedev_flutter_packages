@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:speedev_core/speedev_core.dart';
 import 'package:speedev_ui/speedev_ui.dart';
-import 'package:speedev_ui/src/widgets/state/error/error_view.dart';
-import 'package:speedev_ui/src/widgets/state/loading/loading_indicator.dart';
+
 
 typedef InfiniteListViewFuture<T> = Future<List<T>> Function(int pageSize, int pageKey);
 
@@ -20,6 +19,7 @@ class SDPagedListView<T> extends StatefulWidget {
   final bool isSliver;
   final Axis scrollDirection;
   final bool reverse;
+  final bool shrinkWrap;
 
   const SDPagedListView({
     super.key,
@@ -35,6 +35,7 @@ class SDPagedListView<T> extends StatefulWidget {
     this.isSliver = false,
     this.scrollDirection = Axis.vertical,
     this.reverse = false,
+    this.shrinkWrap = false,
   }) : assert((pagingController != null && future == null) || (pagingController == null && future != null), 'Either pagingController or future must be non-null, but not both and not neither.');
 
   @override
@@ -58,7 +59,10 @@ class _SDPagedListViewState<T> extends State<SDPagedListView<T>> with AutomaticK
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final listView = widget.isSliver ? pagedSliverListView() : pagedListView();
+    
+    // iOS large title durumunda sliver kullan
+    final shouldUseSliver = _shouldUseSliverForScaffold(context);
+    final listView = (widget.isSliver || shouldUseSliver) ? pagedSliverListView() : pagedListView();
 
     return widget.onRefreshActive == true
         ? RefreshIndicator(
@@ -69,11 +73,19 @@ class _SDPagedListViewState<T> extends State<SDPagedListView<T>> with AutomaticK
         : listView;
   }
 
+  // iOS large title scaffold içinde olup olmadığını kontrol et
+  bool _shouldUseSliverForScaffold(BuildContext context) {
+    // Context'ten scaffold'u bul ve iOS large title kullanıp kullanmadığını kontrol et
+    final scaffold = context.findAncestorWidgetOfExactType<SDScaffold>();
+    return scaffold?.appBar?.iosLargeTitle == true && 
+           Theme.of(context).platform == TargetPlatform.iOS;
+  }
+
   Widget pagedListView() {
     return PagedListView.separated(
-      scrollController: widget.scrollController ?? ScrollController(),
+      scrollController: widget.scrollController,
       physics: widget.isScrollable ? null : const NeverScrollableScrollPhysics(),
-      shrinkWrap: !widget.isScrollable,
+      shrinkWrap: widget.shrinkWrap || !widget.isScrollable,
       reverse: widget.reverse,
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<T>(
@@ -101,26 +113,46 @@ class _SDPagedListViewState<T> extends State<SDPagedListView<T>> with AutomaticK
   }
 
   Widget pagedSliverListView() {
+    // iOS large title scaffold içindeyse CustomScrollView wrapper kullan
+    if (_shouldUseSliverForScaffold(context)) {
+      return CustomScrollView(
+        slivers: [
+          PagedSliverList.separated(
+            pagingController: _pagingController,
+            builderDelegate: _getBuilderDelegate(),
+            separatorBuilder: (BuildContext context, int index) {
+              return widget.separator ?? Container();
+            },
+          ),
+        ],
+      );
+    }
+    
+    // Normal sliver kullanım
     return PagedSliverList.separated(
       pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<T>(
-        noItemsFoundIndicatorBuilder: (context) {
-          return widget.emptyView!;
-        },
-        transitionDuration: const Duration(milliseconds: 2500),
-        newPageProgressIndicatorBuilder: (_) => const SDLoadingIndicator(),
-        firstPageProgressIndicatorBuilder: (_) => const SDLoadingIndicator(),
-        firstPageErrorIndicatorBuilder: (context) {
-          return SDErrorView(onTryAgain: () {
-            _pagingController.refresh();
-          });
-        },
-        itemBuilder: (BuildContext context, T item, int index) {
-          return widget.itemBuilder(context, item, index);
-        },
-      ),
+      builderDelegate: _getBuilderDelegate(),
       separatorBuilder: (BuildContext context, int index) {
         return widget.separator ?? Container();
+      },
+    );
+  }
+
+  PagedChildBuilderDelegate<T> _getBuilderDelegate() {
+    return PagedChildBuilderDelegate<T>(
+      noItemsFoundIndicatorBuilder: (context) {
+        return widget.emptyView!;
+      },
+      transitionDuration: const Duration(milliseconds: 2500),
+      newPageProgressIndicatorBuilder: (_) => const SDLoadingIndicator(),
+      firstPageProgressIndicatorBuilder: (_) => const SDLoadingIndicator(),
+      firstPageErrorIndicatorBuilder: (context) {
+        return SDErrorView(onTryAgain: () {
+          _pagingController.refresh();
+        });
+      },
+      itemBuilder: (BuildContext context, T item, int index) {
+        return widget.itemBuilder(context, item, index);
       },
     );
   }
