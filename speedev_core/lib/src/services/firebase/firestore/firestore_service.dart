@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 abstract class SDFirebaseFirestoreServiceAbstract {
   FirebaseFirestore get firestore;
 
-  Future<void> addDocument({required String collectionName, String? documentId, required Map<String, dynamic> data});
+  Future<DocumentReference> addDocument({required String collectionName, String? documentId, required Map<String, dynamic> data});
 
   Future<void> updateDocument({required String collectionName, required String documentId, required Map<String, dynamic> data});
 
@@ -22,11 +22,11 @@ class SDFirebaseFirestoreService implements SDFirebaseFirestoreServiceAbstract {
   FirebaseFirestore get firestore => FirebaseFirestore.instance;
 
   @override
-  Future<void> addDocument({required String collectionName, String? documentId, required Map<String, dynamic> data}) async {
+  Future<DocumentReference> addDocument({required String collectionName, String? documentId, required Map<String, dynamic> data}) async {
     if (documentId != null) {
-      await firestore.collection(collectionName).doc(documentId).set(data);
+      return firestore.collection(collectionName).doc(documentId);
     } else {
-      await firestore.collection(collectionName).add(data);
+      return firestore.collection(collectionName).add(data);
     }
   }
 
