@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:speedev_core/speedev_core.dart';
+import 'package:speedev_ui/speedev_ui.dart';
 import 'package:speedev_ui/src/widgets/state/error/error_view.dart';
 import 'package:speedev_ui/src/widgets/state/loading/loading_indicator.dart';
 
@@ -9,7 +10,7 @@ typedef InfiniteListViewFuture<T> = Future<List<T>> Function(int pageSize, int p
 class SDPagedListView<T> extends StatefulWidget {
   final ItemWidgetBuilder<T> itemBuilder;
   final Widget? emptyView;
-  final PagingController<int, T>? pagingController;
+  final SDPagingController<int, T>? pagingController;
   final InfiniteListViewFuture<T>? future;
   final Widget? separator;
   final ScrollController? scrollController;
