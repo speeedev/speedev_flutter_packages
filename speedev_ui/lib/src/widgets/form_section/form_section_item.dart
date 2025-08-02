@@ -8,9 +8,10 @@ class SDFormSectionItem extends StatelessWidget {
   final Widget? title;
   final EdgeInsetsGeometry? padding;
   final Widget? subtitle;
+  final Color? backgroundColor;
   final void Function()? onTap;
 
-  const SDFormSectionItem({super.key, this.trailing, this.prefix, this.title, this.padding, this.subtitle, this.onTap});
+  const SDFormSectionItem({super.key, this.trailing, this.prefix, this.title, this.padding, this.subtitle, this.onTap, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class SDFormSectionItem extends StatelessWidget {
       trailing: trailing,
       leading: prefix,
       onTap: onTap,
+      backgroundColor: backgroundColor ?? context.colors.surfaceContainer,
     );
   }
 }
