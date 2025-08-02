@@ -11,6 +11,7 @@ class SDListTile extends StatelessWidget {
   final Widget? additionalInfo;
   final Function()? onTap;
   final Color? backgroundColor;
+  final EdgeInsetsGeometry? padding;
 
   const SDListTile({
     super.key,
@@ -21,6 +22,7 @@ class SDListTile extends StatelessWidget {
     this.additionalInfo,
     this.onTap,
     this.backgroundColor,
+    this.padding,
   });
 
   @override
@@ -41,6 +43,7 @@ class SDListTile extends StatelessWidget {
         additionalInfo: additionalInfo,
         onTap: onTap,
         backgroundColor: backgroundColor ?? defaultBackgroundColor,
+        padding: padding,
       ),
       title: title,
       subtitle: subtitle,

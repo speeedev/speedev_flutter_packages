@@ -31,6 +31,7 @@ class SDListSectionItem extends StatelessWidget {
       leading: prefix, 
       onTap: onTap,
       backgroundColor: backgroundColor,
+      padding: padding,
     );
   }
 }

@@ -12,6 +12,7 @@ class SDListSection extends StatelessWidget {
   final EdgeInsets margin;
   final Color? backgroundColor;
   final Color? itemBackgroundColor;
+  final EdgeInsetsGeometry? itemPadding;
 
   const SDListSection({
     super.key,
@@ -21,6 +22,7 @@ class SDListSection extends StatelessWidget {
     this.margin = EdgeInsets.zero,
     this.backgroundColor,
     this.itemBackgroundColor,
+    this.itemPadding,
   });
 
   @override
@@ -32,7 +34,7 @@ class SDListSection extends StatelessWidget {
           subtitle: child.subtitle,
           trailing: child.trailing,
           prefix: child.prefix,
-          padding: child.padding,
+          padding: itemPadding ?? child.padding,
           onTap: child.onTap,
           backgroundColor: itemBackgroundColor,
         );
