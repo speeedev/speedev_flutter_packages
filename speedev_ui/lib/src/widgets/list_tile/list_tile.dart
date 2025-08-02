@@ -25,11 +25,15 @@ class SDListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final defaultBackgroundColor = onTap != null 
+        ? context.colors.surfaceContainerHigh 
+        : context.colors.surfaceContainerLow;
+        
     final listTile = PlatformListTile(
       material: (_, __) => MaterialListTileData(
         titleAlignment: ListTileTitleAlignment.center,
         textColor: context.colors.onSurface,
-        tileColor: backgroundColor ?? context.colors.surfaceContainerHighest,
+        tileColor: backgroundColor ?? defaultBackgroundColor,
       ),
       cupertino: (_, __) => CupertinoListTileData(
         title: title,
@@ -38,7 +42,7 @@ class SDListTile extends StatelessWidget {
         trailing: trailing,
         additionalInfo: additionalInfo,
         onTap: onTap,
-        backgroundColor: backgroundColor ?? context.colors.surfaceContainerHighest,
+        backgroundColor: backgroundColor ?? defaultBackgroundColor,
       ),
       title: title,
       subtitle: subtitle,
