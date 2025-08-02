@@ -25,9 +25,7 @@ class SDListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultBackgroundColor = onTap != null 
-        ? context.colors.surfaceContainerHigh 
-        : context.colors.surfaceContainerLow;
+    final defaultBackgroundColor = backgroundColor ?? (onTap != null ? context.colors.surfaceContainerHigh : context.colors.surfaceContainerLow);
         
     final listTile = PlatformListTile(
       material: (_, __) => MaterialListTileData(
