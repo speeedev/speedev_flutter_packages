@@ -96,7 +96,7 @@ class _SDTextInputState extends State<SDTextInput> {
         errorBorder: OutlineInputBorder(borderRadius: SDRadius.medium(), borderSide: BorderSide(color: context.colors.error)),
         disabledBorder: OutlineInputBorder(borderRadius: SDRadius.medium(), borderSide: BorderSide(color: context.colors.outline)),
         focusedErrorBorder: OutlineInputBorder(borderRadius: SDRadius.medium(), borderSide: BorderSide(color: context.colors.error)),
-        fillColor: context.colors.surfaceContainerLow,
+        fillColor: context.colors.surfaceContainerHighest,
         filled: true,
         prefixIcon: widget.prefix,
         suffixIcon: widget.suffix,
@@ -146,7 +146,7 @@ class _SDTextInputState extends State<SDTextInput> {
               suffix: widget.suffix,
               padding: EdgeInsets.symmetric(horizontal: SDPadding.medium().horizontal, vertical: SDPadding.medium().vertical),
               decoration: BoxDecoration(
-                color: context.colors.surfaceContainerLow,
+                color: context.colors.surfaceContainerHighest,
                 borderRadius: SDRadius.medium(),
                 border: Border.all(color: field.hasError ? context.colors.error : Colors.transparent),
               ),
