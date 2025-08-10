@@ -12,12 +12,12 @@ abstract class SDNetworkServiceAbstract {
   Future<T?> post<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? body,
+    Map<String, dynamic>? data,
   });
   Future<T?> put<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? body,
+    Map<String, dynamic>? data,
   });
   Future<T?> delete<T>({
     required String path,
@@ -42,8 +42,9 @@ class SDNetworkService implements SDNetworkServiceAbstract {
   Future<T?> get<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? data,
   }) async {
-    final response = await getDio().get(path, queryParameters: queryParameters);
+    final response = await getDio().get(path, queryParameters: queryParameters, data: data);
     return response.data as T?;
   }
 
@@ -51,9 +52,9 @@ class SDNetworkService implements SDNetworkServiceAbstract {
   Future<T?> post<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? body,
+    Map<String, dynamic>? data,
   }) async {
-    final response = await getDio().post(path, queryParameters: queryParameters, data: body);
+    final response = await getDio().post(path, queryParameters: queryParameters, data: data);
     return response.data as T?;
   }
 
@@ -61,9 +62,9 @@ class SDNetworkService implements SDNetworkServiceAbstract {
   Future<T?> put<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? body,
+    Map<String, dynamic>? data,
   }) async {
-    final response = await getDio().put(path, queryParameters: queryParameters, data: body);
+    final response = await getDio().put(path, queryParameters: queryParameters, data: data);
     return response.data as T?;
   }
 
