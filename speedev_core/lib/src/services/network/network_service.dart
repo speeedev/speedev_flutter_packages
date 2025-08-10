@@ -5,25 +5,30 @@ abstract class SDNetworkServiceAbstract {
   SDNetworkServiceAbstract() : dioConfig = SDDioConfig();
   final SDDioConfig dioConfig;
 
-  Future<T?> get<T>({
-    required String path,
-    Map<String, dynamic>? queryParameters,
-  });
-  Future<T?> post<T>({
+  Future<Response<T>> get<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? data,
   });
-  Future<T?> put<T>({
+
+  Future<Response<T>> post<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? data,
   });
-  Future<T?> delete<T>({
+
+  Future<Response<T>> put<T>({
+    required String path,
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? data,
+  });
+
+  Future<Response<T>> delete<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
   });
-  Future<void> download({
+
+  Future<Response> download({
     required String savePath,
     required String path,
     Map<String, dynamic>? queryParameters,
@@ -39,50 +44,46 @@ class SDNetworkService implements SDNetworkServiceAbstract {
   Dio getDio() => dioConfig.dio;
 
   @override
-  Future<T?> get<T>({
+  Future<Response<T>> get<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? data,
   }) async {
-    final response = await getDio().get(path, queryParameters: queryParameters, data: data);
-    return response.data as T?;
+    return await getDio().get<T>(path, queryParameters: queryParameters, data: data);
   }
 
   @override
-  Future<T?> post<T>({
+  Future<Response<T>> post<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? data,
   }) async {
-    final response = await getDio().post(path, queryParameters: queryParameters, data: data);
-    return response.data as T?;
+    return await getDio().post<T>(path, queryParameters: queryParameters, data: data);
   }
 
   @override
-  Future<T?> put<T>({
+  Future<Response<T>> put<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? data,
   }) async {
-    final response = await getDio().put(path, queryParameters: queryParameters, data: data);
-    return response.data as T?;
+    return await getDio().put<T>(path, queryParameters: queryParameters, data: data);
   }
 
   @override
-  Future<T?> delete<T>({
+  Future<Response<T>> delete<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
   }) async {
-    final response = await getDio().delete(path, queryParameters: queryParameters);
-    return response.data as T?;
+    return await getDio().delete<T>(path, queryParameters: queryParameters);
   }
 
   @override
-  Future<void> download({
+  Future<Response> download({
     required String savePath,
     required String path,
     Map<String, dynamic>? queryParameters,
   }) async {
-    await getDio().download(path, savePath, queryParameters: queryParameters);
+    return await getDio().download(path, savePath, queryParameters: queryParameters);
   }
 }
