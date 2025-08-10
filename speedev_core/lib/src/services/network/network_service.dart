@@ -31,9 +31,7 @@ abstract class SDNetworkServiceAbstract {
 }
 
 class SDNetworkService implements SDNetworkServiceAbstract {
-  SDNetworkService({
-    required this.dioConfig,
-  });
+  SDNetworkService() : dioConfig = SDDioConfig();
 
   @override
   final SDDioConfig dioConfig;
