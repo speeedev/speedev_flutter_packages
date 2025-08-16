@@ -15,7 +15,7 @@ dependencies:
   json_annotation: ^4.9.0
   shared_preferences: ^2.5.3
   dio: ^5.8.0+1
-  auto_route: ^10.1.0+1
+  auto_route: ^10.1.1
   firebase_storage: ^12.4.7
   path_provider: ^2.1.5
   firebase_crashlytics: ^4.3.7
