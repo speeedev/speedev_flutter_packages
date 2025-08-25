@@ -18,3 +18,4 @@ export 'src/services/firebase/storage/storage_service.dart';
 export 'src/helpers/storage/local_storage_helper.dart';
 export 'src/helpers/navigation/navigation_logger_observer.dart';
 export 'src/helpers/extensions/response_extension.dart';
+export 'src/models/enums/firebase_auth_error_codes.dart';

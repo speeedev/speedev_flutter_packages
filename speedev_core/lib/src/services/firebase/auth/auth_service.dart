@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:speedev_core/speedev_core.dart';
 import 'package:speedev_core/src/models/result_model.dart';
 
 abstract class SDFirebaseAuthServiceAbstract {
@@ -92,9 +93,19 @@ class SDFirebaseAuthService implements SDFirebaseAuthServiceAbstract {
   Future<SDResult<User>> getCurrentUser() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
-      return SDResult(data: user, isSuccess: true);
+      if (user == null) {
+        return SDResult(
+          errorMessage: "User not found",
+          isSuccess: false,
+          errorCode: FirebaseAuthErrorCode.userNotFound.code,
+        );
+      }
+      return SDResult(data: user, isSuccess: true, errorCode: FirebaseAuthErrorCode.unknown.code);
     } catch (e) {
-      return SDResult(errorMessage: e.toString(), isSuccess: false);
+      return SDResult(
+        errorMessage: e.toString(),
+        isSuccess: false,
+      );
     }
   }
 
