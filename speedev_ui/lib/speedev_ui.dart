@@ -1,7 +1,5 @@
 library;
 
-import 'package:flutter/material.dart';
-
 // Extensions
 export 'src/helpers/extensions/context_extension.dart';
 export 'src/helpers/extensions/int_extension.dart';

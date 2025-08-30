@@ -6,10 +6,12 @@ class SDModalBottomSheet {
     required BuildContext context,
     required Widget child,
   }) {
-    showPlatformModalSheet(
-      context: context,
-      builder: (context) => child,
-    );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      showPlatformModalSheet(
+        context: context,
+        builder: (context) => child,
+      );
+    });
   }
 
   static void close(BuildContext context) {
