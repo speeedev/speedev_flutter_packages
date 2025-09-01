@@ -23,11 +23,20 @@ class SDFirebaseFirestoreService implements SDFirebaseFirestoreServiceAbstract {
   FirebaseFirestore get firestore => FirebaseFirestore.instance;
 
   @override
-  Future<SDResult<DocumentReference>> addDocument({required String collectionName, String? documentId, required Map<String, dynamic> data}) async {
+  Future<SDResult<DocumentReference>> addDocument({
+    required String collectionName,
+    String? documentId,
+    required Map<String, dynamic> data,
+  }) async {
+    final collection = firestore.collection(collectionName);
+
     if (documentId != null) {
-      return SDResult(data: firestore.collection(collectionName).doc(documentId), isSuccess: true);
+      final docRef = collection.doc(documentId);
+      await docRef.set(data);
+      return SDResult(data: docRef, isSuccess: true);
     } else {
-      return SDResult(data: await firestore.collection(collectionName).add(data), isSuccess: true);
+      final docRef = await collection.add(data);
+      return SDResult(data: docRef, isSuccess: true);
     }
   }
 
