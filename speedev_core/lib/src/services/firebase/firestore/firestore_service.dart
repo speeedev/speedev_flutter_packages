@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:speedev_core/src/models/result_model.dart';
 
 abstract class SDFirebaseFirestoreServiceAbstract {
   FirebaseFirestore get firestore;
 
-  Future<DocumentReference> addDocument({required String collectionName, String? documentId, required Map<String, dynamic> data});
+  Future<SDResult<DocumentReference>> addDocument({required String collectionName, String? documentId, required Map<String, dynamic> data});
 
-  Future<void> updateDocument({required String collectionName, required String documentId, required Map<String, dynamic> data});
+  Future<SDResult<void>> updateDocument({required String collectionName, required String documentId, required Map<String, dynamic> data});
 
-  Future<void> deleteDocument({required String collectionName, required String documentId});
+  Future<SDResult<void>> deleteDocument({required String collectionName, required String documentId});
 
-  Future<Map<String, dynamic>> getDocument({required String collectionName, required String documentId});
+  Future<SDResult<Map<String, dynamic>>> getDocument({required String collectionName, required String documentId});
 
-  Future<List<Map<String, dynamic>>> getDocuments({
+  Future<SDResult<List<Map<String, dynamic>>>> getDocuments({
     required String collectionName,
     Query<Map<String, dynamic>>? Function(CollectionReference<Map<String, dynamic>> collection)? queryBuilder,
   });
@@ -22,36 +23,38 @@ class SDFirebaseFirestoreService implements SDFirebaseFirestoreServiceAbstract {
   FirebaseFirestore get firestore => FirebaseFirestore.instance;
 
   @override
-  Future<DocumentReference> addDocument({required String collectionName, String? documentId, required Map<String, dynamic> data}) async {
+  Future<SDResult<DocumentReference>> addDocument({required String collectionName, String? documentId, required Map<String, dynamic> data}) async {
     if (documentId != null) {
-      return firestore.collection(collectionName).doc(documentId);
+      return SDResult(data: firestore.collection(collectionName).doc(documentId), isSuccess: true);
     } else {
-      return firestore.collection(collectionName).add(data);
+      return SDResult(data: await firestore.collection(collectionName).add(data), isSuccess: true);
     }
   }
 
   @override
-  Future<void> updateDocument({required String collectionName, required String documentId, required Map<String, dynamic> data}) async {
+  Future<SDResult<void>> updateDocument({required String collectionName, required String documentId, required Map<String, dynamic> data}) async {
     await firestore.collection(collectionName).doc(documentId).update(data);
+    return SDResult(data: null, isSuccess: true);
   }
 
   @override
-  Future<void> deleteDocument({required String collectionName, required String documentId}) async {
+  Future<SDResult<void>> deleteDocument({required String collectionName, required String documentId}) async {
     await firestore.collection(collectionName).doc(documentId).delete();
+    return SDResult(data: null, isSuccess: true);
   }
 
   @override
-  Future<Map<String, dynamic>> getDocument({required String collectionName, required String documentId}) async {
-    return await firestore.collection(collectionName).doc(documentId).get().then((value) => value.data() as Map<String, dynamic>);
+  Future<SDResult<Map<String, dynamic>>> getDocument({required String collectionName, required String documentId}) async {
+    return SDResult(data: await firestore.collection(collectionName).doc(documentId).get().then((value) => value.data() as Map<String, dynamic>), isSuccess: true);
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getDocuments({
+  Future<SDResult<List<Map<String, dynamic>>>> getDocuments({
     required String collectionName,
     Query<Map<String, dynamic>>? Function(CollectionReference<Map<String, dynamic>> collection)? queryBuilder,
   }) async {
     final collection = firestore.collection(collectionName);
     final query = queryBuilder?.call(collection) ?? collection;
-    return await query.get().then((value) => value.docs.map((e) => e.data()).toList());
+    return SDResult(data: await query.get().then((value) => value.docs.map((e) => e.data()).toList()), isSuccess: true);
   }
 }
